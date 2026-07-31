@@ -1,0 +1,90 @@
+/*
+ * Embed Video block
+ * Source: section.story_campaign .video_wrap on juvederm.co.kr/juvederm/story.php
+ *
+ * Source geometry (desktop, ~1066px content column):
+ *   .video       -> full content width, 16:9 (padding-bottom 56.25%), square
+ *                   corners, overflow: hidden, white background under the player.
+ *   iframe       -> absolutely positioned, fills the 16:9 box.
+ * The grey section background is applied by the section (.section.grey in
+ * styles.css), matching the source's grey campaign band.
+ */
+
+.embed-video {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/*
+ * Boilerplate embed markup injects an aspect-ratio wrapper
+ * (position: relative; padding-bottom: 56.25% == 16:9) with an absolutely
+ * positioned iframe. Source video has square corners and clips overflow,
+ * sitting on a white surface beneath the player.
+ */
+.embed-video > div {
+  position: relative;
+  width: 100%;
+  border-radius: 0;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.embed-video iframe {
+  border: 0;
+  border-radius: 0;
+}
+
+.embed-video.embed-video-twitter .twitter-tweet-rendered {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Placeholder (poster + play button) — used only when the block is authored
+   with a picture; the campaign video is link-only so these are inactive here. */
+.embed-video .embed-video-placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  position: relative;
+}
+
+.embed-video .embed-video-placeholder > * {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  inset: 0;
+}
+
+.embed-video .embed-video-placeholder picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.embed-video .embed-video-placeholder-play button {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  transform: scale(3);
+  width: 22px;
+  height: 22px;
+  border: 2px solid;
+  border-radius: 20px;
+  padding: 0;
+}
+
+.embed-video .embed-video-placeholder-play button::before {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  width: 0;
+  height: 10px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 6px solid;
+  top: 4px;
+  left: 7px;
+}

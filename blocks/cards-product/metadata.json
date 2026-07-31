@@ -1,0 +1,39 @@
+{
+  "variantName": "cards-product",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-07-31T14:20:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.juvederm.co.kr",
+    "originPage": "homepage",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "grey",
+    "density": "spacious",
+    "purpose": "product",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "image + product name (linked)",
+    "buttonCount": 0,
+    "imageCount": 3
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "product listing grids",
+      "linked product/collection tiles with imagery",
+      "repeating catalog items on grey background"
+    ],
+    "notSuitableFor": [
+      "text-only cards (use cards no-images)",
+      "single feature highlight",
+      "side-by-side comparison layouts (use columns)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-31T14:20:00.000Z"
+  }
+}

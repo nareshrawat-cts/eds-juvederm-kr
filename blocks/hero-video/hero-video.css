@@ -1,0 +1,199 @@
+/*
+ * hero-video — full-bleed autoplaying video hero.
+ * Values extracted from juvederm.co.kr #visual computed styles.
+ */
+
+/* Full-bleed: override the section max-width/padding wrapper. */
+.hero-video-container .hero-video-wrapper {
+  max-width: unset;
+  margin: 0;
+  padding: 0;
+}
+
+.section.hero-video-container {
+  margin: 0;
+  padding: 0;
+}
+
+/*
+ * The header is fixed and overlays the hero (as on the source, where #visual
+ * starts at top:0 behind the fixed header). Pull the hero up under the header
+ * so the video fills exactly one viewport (100vh) from the very top, instead
+ * of starting 82px below it and overflowing the viewport.
+ */
+main > .section.hero-video-container:first-child {
+  margin-top: calc(-1 * var(--nav-height));
+}
+
+.hero-video {
+  position: relative;
+  height: 577px; /* source mobile #visual height */
+  overflow: hidden;
+  background-color: rgb(83 40 79); /* #53284f source bg behind video */
+}
+
+/* Background video layer */
+.hero-video .hero-video-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hero-video .hero-video-iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  /* cover: video is 16:9; scale so it always fills the viewport */
+  width: 100vw;
+  height: 56.25vw; /* 100vw * 9/16 */
+  min-height: 100%;
+  min-width: 177.78vh; /* 100vh * 16/9 */
+  transform: translate(-50%, -50%);
+  border: 0;
+  pointer-events: none;
+}
+
+/* Centered wordmark overlay */
+.hero-video .hero-video-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 60px; /* wordmark sits near the bottom center */
+  pointer-events: none;
+}
+
+.hero-video .hero-video-overlay h1,
+.hero-video .hero-video-overlay h2,
+.hero-video .hero-video-overlay h3 {
+  margin: 0;
+  font-family: Marcellus, serif;
+  font-weight: 400;
+  font-size: 35.75px; /* source mobile */
+  line-height: 1;
+  letter-spacing: normal;
+  color: #fff;
+  text-align: center;
+}
+
+.hero-video .hero-video-overlay sup {
+  font-size: 0.55em; /* 19.5/35.75 ≈ 0.55; 40/66 ≈ 0.6 */
+  vertical-align: super;
+}
+
+/* Play / mute controls, bottom-left */
+.hero-video .hero-video-controls {
+  position: absolute;
+  left: 20px;
+  bottom: 25px;
+  z-index: 3;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.hero-video .hero-video-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.hero-video .hero-video-btn svg {
+  width: 100%;
+  height: 100%;
+  fill: currentcolor;
+}
+
+/* Scroll-down cue (right side) — hidden on mobile like the source */
+.hero-video .hero-video-scroll {
+  display: none;
+}
+
+@media (width >= 900px) {
+  .hero-video {
+    height: 100vh; /* source desktop #visual = full viewport */
+  }
+
+  .hero-video .hero-video-overlay {
+    padding-bottom: 90px;
+  }
+
+  .hero-video .hero-video-overlay h1,
+  .hero-video .hero-video-overlay h2,
+  .hero-video .hero-video-overlay h3 {
+    font-size: 66px; /* source desktop */
+  }
+
+  .hero-video .hero-video-controls {
+    /* align to the left edge of the centered 1350px content column, like the
+       source (PLAY starts at (100vw - 1350px)/2, min 5% gutter) */
+    left: max(5%, calc((100% - 1350px) / 2));
+    bottom: 55px;
+    gap: 27px; /* source li margin-right */
+  }
+
+  .hero-video .hero-video-btn {
+    width: 24px;
+    height: 24px;
+  }
+
+  .hero-video .hero-video-scroll {
+    position: absolute;
+    right: 72px;
+    top: 50%;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 33px;
+    height: 142px;
+    color: #fff;
+    text-align: center;
+    transform: translateY(-50%);
+  }
+
+  .hero-video .hero-video-scroll:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .hero-video .hero-video-scroll-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #fff;
+  }
+
+  .hero-video .hero-video-scroll-label {
+    writing-mode: vertical-rl;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+}
+
+/* Fallback when no video is authored: light content block. */
+.hero-video.no-image {
+  height: auto;
+  min-height: 300px;
+  padding: 40px 24px;
+  background-color: var(--background-color);
+}
+
+.hero-video.no-image * {
+  color: var(--text-color);
+}

@@ -1,0 +1,292 @@
+/*
+ * carousel-story — "value story" 3D coverflow image slider.
+ * Modelled on the source Swiper coverflow at #story .story_roll:
+ *   portrait cards (active 590x710 desktop, aspect ~0.83), centre card
+ *   prominent with neighbours scaled/tucked behind, a grey caption BELOW the
+ *   image (16px, #777, centred — not overlaid), PREV/NEXT text controls at the
+ *   slider's outer edges (no dot indicators). No dark gradient overlay.
+ */
+
+.carousel-story {
+  --carousel-card-width: 250px;
+  --carousel-card-aspect: 580 / 710;
+  --carousel-neighbour-shift: 62%;
+  --carousel-neighbour-scale: 0.82;
+
+  position: relative;
+}
+
+/* "value story" section: an outlined wordmark watermark (.outlineTit), the
+   "value story" heading on top of it, and an intro paragraph — all default
+   content above the carousel, centred, matching the source #story .titArea.
+   DOM order: p (outlineTit) → h3 (heading) → p (intro). */
+.section:has(> .carousel-story-wrapper) {
+  padding: 60px 0;
+  text-align: center;
+}
+
+/* Outlined wordmark watermark (first paragraph). Big plum-outlined, white
+   fill at low opacity, sitting behind the heading (source .outlineTit). */
+.section:has(> .carousel-story-wrapper) .default-content-wrapper p:first-child {
+  position: relative;
+  top: 30px;
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-size: 80px;
+  font-weight: 400;
+  line-height: 1;
+  color: #fff;
+  opacity: 0.3;
+  -webkit-text-stroke: 1px #53284f;
+}
+
+.section:has(> .carousel-story-wrapper) .default-content-wrapper p:first-child sup {
+  font-size: 0.67em;
+  vertical-align: super;
+}
+
+/* "value story" heading sits on top of the watermark. */
+.section:has(> .carousel-story-wrapper) .default-content-wrapper h3 {
+  position: relative;
+  z-index: 2;
+  margin: 0 auto;
+  font-family: var(--heading-font-family);
+  font-weight: 400;
+  color: var(--text-color);
+  text-align: center;
+}
+
+/* Intro paragraph (any paragraph after the first). */
+.section:has(> .carousel-story-wrapper) .default-content-wrapper p:not(:first-child) {
+  margin: 12px auto 0;
+  color: var(--text-color);
+  text-align: center;
+}
+
+@media (width >= 900px) {
+  .section:has(> .carousel-story-wrapper) {
+    padding: 170px 0;
+  }
+
+  .section:has(> .carousel-story-wrapper) .default-content-wrapper p:first-child {
+    top: 40px;
+    font-size: 100px;
+  }
+
+  .section:has(> .carousel-story-wrapper) .default-content-wrapper h3 {
+    font-size: 56px;
+    line-height: 1.1;
+  }
+
+  .section:has(> .carousel-story-wrapper) .default-content-wrapper p:not(:first-child) {
+    margin-top: 20px;
+    font-size: 20px;
+  }
+}
+
+@media (width >= 1460px) {
+  .section:has(> .carousel-story-wrapper) .default-content-wrapper p:first-child {
+    top: 50px;
+    font-size: 150px;
+  }
+}
+
+.carousel-story .carousel-story-slides-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  perspective: 1200px;
+
+  /* entrance animation: the slider fades up like the source AOS fade-up */
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.carousel-story.in-view .carousel-story-slides-container {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- slide stage (caption overlays the image, so height = card height) --- */
+.carousel-story .carousel-story-slides {
+  order: 1;
+  position: relative;
+  width: 100%;
+  height: calc(var(--carousel-card-width) / (580 / 710));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transform-style: preserve-3d;
+}
+
+/* --- individual card --- */
+.carousel-story .carousel-story-slide {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--carousel-card-width);
+  margin: 0;
+  transform: translateX(-50%);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  cursor: pointer;
+  will-change: transform;
+}
+
+/* centre / active card */
+.carousel-story .carousel-story-slide[data-offset='0'] {
+  z-index: 3;
+  opacity: 1;
+  transform: translateX(-50%) translateZ(0) scale(1);
+  cursor: default;
+}
+
+/* immediate neighbours peek out from behind the centre card */
+.carousel-story .carousel-story-slide[data-offset='1'] {
+  z-index: 2;
+  opacity: 1;
+  transform: translateX(calc(-50% + var(--carousel-neighbour-shift))) translateZ(-140px) scale(var(--carousel-neighbour-scale));
+}
+
+.carousel-story .carousel-story-slide[data-offset='-1'] {
+  z-index: 2;
+  opacity: 1;
+  transform: translateX(calc(-50% - var(--carousel-neighbour-shift))) translateZ(-140px) scale(var(--carousel-neighbour-scale));
+}
+
+/* everything further out is hidden */
+.carousel-story .carousel-story-slide:not([data-offset='0'], [data-offset='1'], [data-offset='-1']) {
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateZ(-260px) scale(0.7);
+}
+
+/* --- image --- */
+.carousel-story .carousel-story-slide-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: var(--carousel-card-aspect);
+  overflow: hidden;
+}
+
+.carousel-story .carousel-story-slide-image picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-story .carousel-story-slide-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* dark gradient at the image bottom so the overlaid caption is legible
+   (source: linear-gradient(to top, #333, transparent), 40% tall, opacity 0.6) */
+.carousel-story .carousel-story-slide-image::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 40%;
+  opacity: 0.6;
+  background: linear-gradient(to top, #333, transparent);
+  pointer-events: none;
+}
+
+/* --- caption: white text overlaid ON the image bottom (matches source .txt).
+   Only the active card's caption is shown; it fades in like the source. --- */
+.carousel-story .carousel-story-slide-content {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 40px 20px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.4s ease 0.1s;
+}
+
+.carousel-story .carousel-story-slide-content h4 {
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: #fff;
+}
+
+.carousel-story .carousel-story-slide[data-offset='0'] .carousel-story-slide-content {
+  opacity: 1;
+}
+
+/* --- navigation controls (PREV / NEXT text at the slider's outer edges) --- */
+.carousel-story .carousel-story-navigation-buttons {
+  order: 2;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.carousel-story .carousel-story-navigation-buttons button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-color);
+  font-family: var(--heading-font-family);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity 0.3s linear;
+}
+
+.carousel-story .carousel-story-navigation-buttons button:hover {
+  opacity: 1;
+}
+
+/* the boilerplate dot indicators are not used in this variant */
+.carousel-story .carousel-story-slide-indicators,
+.carousel-story > nav {
+  display: none;
+}
+
+@media (width >= 900px) {
+  .carousel-story {
+    --carousel-card-width: 580px; /* source active image width */
+    --carousel-neighbour-shift: 70%;
+  }
+
+  .carousel-story .carousel-story-slide-content {
+    padding: 60px 30px;
+  }
+
+  .carousel-story .carousel-story-slide-content h4 {
+    font-size: 33px;
+  }
+
+  /* PREV/NEXT float over the slider, pinned to its outer edges and lower
+     area, like the source (bottom:40px, at centre ±675px). */
+  .carousel-story .carousel-story-navigation-buttons {
+    position: absolute;
+    left: 50%;
+    bottom: 40px;
+    z-index: 10;
+    width: min(1350px, 100vw - 60px);
+    margin: 0;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  .carousel-story .carousel-story-navigation-buttons button {
+    pointer-events: auto;
+  }
+}

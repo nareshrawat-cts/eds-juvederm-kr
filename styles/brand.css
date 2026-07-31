@@ -1,0 +1,23 @@
+/*
+ * brand.css — design tokens extracted from https://www.juvederm.co.kr
+ * Body: Pretendard (Korean sans). Display headings: Marcellus (serif).
+ */
+
+:root {
+  /* fonts */
+  --heading-font-family: "Marcellus", "Pretendard", "Noto Sans KR", serif;
+  --body-font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+
+  /* colors */
+  --background-color: #fff;
+  --text-color: #333;
+  --body-text-color: #777;
+  --link-color: #333;
+  --link-hover-color: #000;
+  --light-color: #f5f5f5;
+  --dark-color: #3d1f36;
+
+  /* spacing */
+  --section-padding: 80px;
+  --nav-height: 82px;
+}

@@ -1,0 +1,38 @@
+{
+  "variantName": "columns-brand",
+  "baseBlock": "columns",
+  "version": "1.0.0",
+  "created": "2026-07-31T14:20:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.juvederm.co.kr",
+    "originPage": "homepage",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "brand-intro",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "image + text (eyebrow + headline + CTA)",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "two-column image + text intro sections",
+      "brand story teasers",
+      "side-by-side media and copy layouts on light background"
+    ],
+    "notSuitableFor": [
+      "repeating product/feature grids (use cards)",
+      "three-or-more equal informational columns without imagery"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-31T14:20:00.000Z"
+  }
+}

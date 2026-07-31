@@ -1,0 +1,92 @@
+/*
+ * cards-feature — icon + caption feature items.
+ *
+ * Two source layouts share this variant:
+ *  1) story.php "The Juvéderm Value Story" infographic — 3 large icons
+ *     (118px) with short centered captions around a central product image.
+ *  2) product pages (volbella) ".feature_list" — 3 items (feature 01/02/03)
+ *     each an icon above a short title.
+ *
+ * EDS decorates the block to:
+ *   .cards-feature > ul > li
+ *     > div.cards-feature-card-image > picture > img
+ *     > div.cards-feature-card-body   > p (or heading)
+ *
+ * Icon size, caption font-size/color/line-height are taken from the source
+ * computed styles (icons 118px; captions 16px Pretendard, rgb(119,119,119),
+ * line-height 1.7).
+ */
+
+.cards-feature > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.cards-feature > ul > li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+/* Icon cell — source icons render at 118px square. */
+.cards-feature .cards-feature-card-image {
+  line-height: 0;
+  flex: 0 0 auto;
+}
+
+.cards-feature .cards-feature-card-image picture,
+.cards-feature .cards-feature-card-image img {
+  display: block;
+  width: 118px;
+  height: 118px;
+  object-fit: contain;
+}
+
+/* Caption / title cell. */
+.cards-feature .cards-feature-card-body {
+  margin: 0;
+}
+
+.cards-feature .cards-feature-card-body p {
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--body-text-color);
+}
+
+/* feature_list variant: title (headings inside body). */
+.cards-feature .cards-feature-card-body h3,
+.cards-feature .cards-feature-card-body h4,
+.cards-feature .cards-feature-card-body h5 {
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text-color);
+}
+
+@media (width >= 900px) {
+  .cards-feature > ul {
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 80px;
+  }
+
+  .cards-feature > ul > li {
+    flex: 0 1 300px;
+    max-width: 350px;
+  }
+}

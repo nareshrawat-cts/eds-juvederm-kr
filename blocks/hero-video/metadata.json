@@ -1,0 +1,38 @@
+{
+  "variantName": "hero-video",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2026-07-31T14:20:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.juvederm.co.kr",
+    "originPage": "homepage",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "minimal",
+    "purpose": "hero",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "background media + heading",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "full-width video/image hero banners",
+      "homepage brand intro heroes",
+      "dark full-bleed page headers with overlaid heading"
+    ],
+    "notSuitableFor": [
+      "text-only heroes on light background",
+      "product detail heroes with sidebar layouts"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-31T14:20:00.000Z"
+  }
+}

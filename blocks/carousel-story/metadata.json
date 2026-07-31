@@ -1,0 +1,38 @@
+{
+  "variantName": "carousel-story",
+  "baseBlock": "carousel",
+  "version": "1.0.0",
+  "created": "2026-07-31T14:20:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.juvederm.co.kr",
+    "originPage": "homepage",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "story-gallery",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "repeating image + caption slides",
+    "buttonCount": 0,
+    "imageCount": 3
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "image galleries with captions",
+      "brand/value story sliders",
+      "swipable featured-image showcases"
+    ],
+    "notSuitableFor": [
+      "single static image (no rotation needed)",
+      "text-heavy content that should be visible at once"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-31T14:20:00.000Z"
+  }
+}
