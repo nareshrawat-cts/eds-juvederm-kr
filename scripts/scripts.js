@@ -10,6 +10,9 @@ import {
   loadSections,
   loadCSS,
   buildBlock,
+  readBlockConfig,
+  toClassName,
+  toCamelCase,
 } from './aem.js';
 
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
@@ -143,14 +146,96 @@ function decorateButtons(main) {
 }
 
 /**
+ * Moves all the attributes from a given elmenet to another given element.
+ * @param {Element} from the element to copy attributes from
+ * @param {Element} to the element to copy attributes to
+ */
+export function moveAttributes(from, to, attributes) {
+  if (!attributes) {
+    // eslint-disable-next-line no-param-reassign
+    attributes = [...from.attributes].map(({ nodeName }) => nodeName);
+  }
+  attributes.forEach((attr) => {
+    const value = from.getAttribute(attr);
+    if (value) {
+      to.setAttribute(attr, value);
+      from.removeAttribute(attr);
+    }
+  });
+}
+
+/**
+ * Move instrumentation attributes from a given element to another given element.
+ * On a document (non Universal Editor) project there is no instrumentation to move,
+ * so only data-aue-* and data-richtext-* attributes (if any) are relocated.
+ * @param {Element} from the element to copy attributes from
+ * @param {Element} to the element to copy attributes to
+ */
+export function moveInstrumentation(from, to) {
+  moveAttributes(
+    from,
+    to,
+    [...from.attributes]
+      .map(({ nodeName }) => nodeName)
+      .filter((attr) => attr.startsWith('data-aue-') || attr.startsWith('data-richtext-')),
+  );
+}
+
+/**
+ * Applies `section-metadata` blocks to their parent section as classes / data
+ * attributes, then removes the metadata block. This boilerplate's aem.js
+ * `decorateSections` does not process section metadata, so we handle it here
+ * (after sections are created, before blocks load — otherwise aem.js would try
+ * to fetch a non-existent `section-metadata` block and 404).
+ * @param {Element} main The main element
+ */
+function decorateSectionMetadata(main) {
+  main.querySelectorAll(':scope > .section > div > .section-metadata').forEach((sectionMeta) => {
+    const section = sectionMeta.closest('.section');
+    const meta = readBlockConfig(sectionMeta);
+    Object.keys(meta).forEach((key) => {
+      if (key === 'style') {
+        const styles = meta.style
+          .split(',')
+          .map((style) => toClassName(style.trim()))
+          .filter((style) => style);
+        styles.forEach((style) => section.classList.add(style));
+      } else {
+        section.dataset[toCamelCase(key)] = meta[key];
+      }
+    });
+    sectionMeta.parentNode.remove();
+  });
+}
+
+/**
+ * Removes page-level `metadata` blocks from the DOM. In Edge Delivery the
+ * document metadata table is surfaced as `<meta>` tags by the publishing
+ * pipeline, not rendered as a block. This older boilerplate's decorateBlocks
+ * would otherwise try to load a non-existent `metadata` block and 404.
+ * @param {Element} main The main element
+ */
+function removeMetadataBlocks(main) {
+  main.querySelectorAll('.metadata').forEach((block) => {
+    const wrapper = block.closest('.section > div') || block;
+    block.remove();
+    // clean up an emptied wrapper
+    if (wrapper !== block && !wrapper.textContent.trim() && !wrapper.children.length) {
+      wrapper.remove();
+    }
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
-// eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
+  decorateSectionMetadata(main);
+  removeMetadataBlocks(main);
   decorateBlocks(main);
   decorateButtons(main);
 }
@@ -183,8 +268,33 @@ async function loadEager(doc) {
  * Loads everything that doesn't need to be delayed.
  * @param {Element} doc The container element
  */
+/**
+ * Builds the floating "quick links" social widget (Instagram + KakaoTalk).
+ * Mirrors the source #quick widget: a sticky element that travels down the page
+ * as you scroll, with pills that expand on hover to reveal a label.
+ * @param {Document} doc
+ */
+function buildQuickLinks(doc) {
+  if (doc.querySelector('.quick-links')) return;
+  const base = window.hlx.codeBasePath;
+  const quick = doc.createElement('aside');
+  quick.className = 'quick-links';
+  quick.setAttribute('aria-label', '소셜 미디어');
+  quick.innerHTML = `
+    <a class="quick-links-item" href="https://www.instagram.com/juvederm_korea" target="_blank" rel="noopener">
+      <span class="quick-links-icon"><img src="${base}/icons/social-instagram.svg" alt="" loading="lazy" width="40" height="40"></span>
+      <span class="quick-links-label">쥬비덤&reg; 인스타그램</span>
+    </a>
+    <a class="quick-links-item" href="https://pf.kakao.com/_WIxmxaK" target="_blank" rel="noopener">
+      <span class="quick-links-icon"><img src="${base}/icons/social-kakao.svg" alt="" loading="lazy" width="40" height="40"></span>
+      <span class="quick-links-label">쥬비덤&reg; 카카오톡채널</span>
+    </a>`;
+  doc.body.append(quick);
+}
+
 async function loadLazy(doc) {
   loadHeader(doc.querySelector('body > header'));
+  buildQuickLinks(doc);
 
   const main = doc.querySelector('main');
   await loadSections(main);

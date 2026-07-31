@@ -1,0 +1,39 @@
+{
+  "variantName": "embed-video",
+  "baseBlock": "embed",
+  "version": "1.0.0",
+  "created": "2026-07-31T14:35:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.juvederm.co.kr/juvederm/story.php",
+    "originPage": "brand-story",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "grey",
+    "density": "spacious",
+    "purpose": "video",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "external video URL (Vimeo)",
+    "buttonCount": 0,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "embedded external videos (Vimeo/YouTube) within content sections",
+      "campaign/marketing video placements",
+      "single featured video with responsive 16:9 player"
+    ],
+    "notSuitableFor": [
+      "full-bleed background video heroes (use hero-video)",
+      "self-hosted video files requiring the Video block",
+      "social post embeds needing custom styling"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/juvederm/story-php"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-31T14:35:00.000Z"
+  }
+}

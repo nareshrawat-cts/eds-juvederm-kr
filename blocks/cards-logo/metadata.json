@@ -1,0 +1,42 @@
+{
+  "variantName": "cards-logo",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-07-31T14:35:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.juvederm.co.kr/juvederm/story.php",
+    "originPage": "brand-story",
+    "blockPosition": "bottom"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "logo-showcase",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "image only (no title/text)",
+    "buttonCount": 0,
+    "imageCount": 4
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "horizontal rows of product package/logo images with no captions",
+      "brand/product lineup showcases (image-only)",
+      "uniform image-only grids"
+    ],
+    "notSuitableFor": [
+      "linked product tiles with names (use cards-product)",
+      "icon + caption feature lists (use cards-feature)",
+      "cards that require titles, descriptions, or CTAs"
+    ]
+  },
+  "usage": {
+    "pagesUsing": [
+      "/juvederm/story-php",
+      "/product/volbella-php"
+    ],
+    "reuseCount": 2,
+    "lastUsed": "2026-07-31T14:45:00.000Z"
+  }
+}

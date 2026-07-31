@@ -115,8 +115,19 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
 export default async function decorate(block) {
   // load nav as fragment
   const navMeta = getMetadata('nav');
-  const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
+  const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/content/nav';
   const fragment = await loadFragment(navPath);
+
+  // The nav fragment references its images with paths relative to the fragment
+  // (e.g. "images/logo.svg"). Resolve them against the fragment's own directory
+  // so they don't break on nested pages like /content/juvederm/story.
+  const navDir = `${navPath.substring(0, navPath.lastIndexOf('/'))}/`;
+  fragment.querySelectorAll('img[src]').forEach((img) => {
+    const src = img.getAttribute('src');
+    if (src && !src.startsWith('/') && !src.startsWith('http') && !src.startsWith('data:')) {
+      img.setAttribute('src', navDir + src);
+    }
+  });
 
   // decorate nav DOM
   block.textContent = '';

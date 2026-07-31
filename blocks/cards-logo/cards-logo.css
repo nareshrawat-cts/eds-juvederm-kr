@@ -1,0 +1,57 @@
+/*
+ * cards-logo — image-only product package logos in a row.
+ * Values extracted from source: section.story_safety ul.story_product
+ * (juvederm.co.kr/juvederm/story.php) and .product_cut on product pages.
+ *
+ * Source (desktop): ul is a flex row, cards are equal width with a 10px
+ * gutter, images render at their natural aspect ratio (~1.43) with no
+ * border / background / radius. Robust to a small, variable number of cards.
+ */
+
+.cards-logo > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.cards-logo > ul > li {
+  flex: 1 1 0;
+  min-width: 140px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  list-style: none;
+}
+
+/* image-only cards: the body cell is empty on the source, hide it */
+.cards-logo .cards-logo-card-body:empty {
+  display: none;
+}
+
+.cards-logo .cards-logo-card-image {
+  line-height: 0;
+}
+
+.cards-logo .cards-logo-card-image picture,
+.cards-logo .cards-logo-card-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0;
+  object-fit: contain;
+}
+
+/* Mobile: allow cards to wrap into 2 columns rather than shrink to nothing */
+@media (width < 600px) {
+  .cards-logo > ul > li {
+    flex: 1 1 40%;
+    min-width: 40%;
+  }
+}

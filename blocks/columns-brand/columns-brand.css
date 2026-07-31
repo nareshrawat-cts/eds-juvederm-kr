@@ -1,0 +1,139 @@
+/* Block: columns-brand — brand intro (photo + text)
+ * Values extracted from https://www.juvederm.co.kr #about intro.
+ * Source: full-bleed 50/50 row; left = brand photo, right = centered text.
+ */
+
+/* Full-bleed: source intro spans the full viewport width, but the EDS
+ * section wrapper caps content at 1200px. Break out of that cap. */
+.columns-brand-wrapper {
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+.columns-brand > div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Image column: source uses a decorative brand photo (about-img.jpg) as a
+ * cover background on an otherwise empty cell. It is hidden on mobile. */
+.columns-brand .columns-brand-img-col {
+  display: none;
+}
+
+/* Text column */
+.columns-brand .columns-brand-text-col {
+  padding: 40px 24px;
+}
+
+.columns-brand .columns-brand-text-col h4 {
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.04em;
+  color: var(--text-color);
+}
+
+/* The "JUVÉDERM®" run in the eyebrow is the brand plum. */
+.columns-brand .columns-brand-text-col h4 sup {
+  color: #53284f;
+}
+
+.columns-brand .columns-brand-text-col h3 {
+  margin: 0.4em 0 0;
+  font-family: var(--body-font-family);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text-color);
+}
+
+.columns-brand .columns-brand-text-col h3 strong {
+  font-weight: 400;
+}
+
+.columns-brand .columns-brand-text-col p {
+  margin: 16px 0 0;
+}
+
+/* CTA "자세히보기 ↗" — plain inline text link on mobile. */
+.columns-brand .columns-brand-text-col a:any-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--body-text-color);
+  text-decoration: none;
+}
+
+.columns-brand .columns-brand-arrow {
+  color: #53284f;
+  font-size: 16px;
+  line-height: 1;
+}
+
+@media (width >= 900px) {
+  /* 50/50 full-bleed row, 740px tall on the source. */
+  .columns-brand > div {
+    flex-direction: row;
+    align-items: stretch;
+    min-height: 740px;
+  }
+
+  .columns-brand .columns-brand-img-col,
+  .columns-brand .columns-brand-text-col {
+    flex: 1 1 50%;
+    width: 50%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  /* Show the brand photo as a cover background on the empty image cell. */
+  .columns-brand .columns-brand-img-col {
+    display: block;
+    background-image: url('./about-img.jpg');
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+  }
+
+  /* Text is vertically centered, inset 110px from the column edge like the
+     source (text starts at x=1070 = 110px into the right half). */
+  .columns-brand .columns-brand-text-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 110px;
+  }
+
+  .columns-brand .columns-brand-text-col h4 {
+    font-family: var(--heading-font-family);
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.35;
+    letter-spacing: normal;
+  }
+
+  .columns-brand .columns-brand-text-col h3 {
+    margin-top: 0.2em;
+    font-size: 43px;
+    font-weight: 100;
+    line-height: 1.3;
+    letter-spacing: -1.72px;
+  }
+
+  /* CTA becomes a plum-outlined pill on desktop. */
+  .columns-brand .columns-brand-text-col p {
+    margin-top: 28px;
+  }
+
+  .columns-brand .columns-brand-text-col a:any-link {
+    justify-content: center;
+    border: 1px solid #53284f;
+    border-radius: 43px;
+    padding: 10px 26px;
+  }
+}

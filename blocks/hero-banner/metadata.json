@@ -1,0 +1,42 @@
+{
+  "variantName": "hero-banner",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2026-07-31T14:35:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.juvederm.co.kr/juvederm/story.php",
+    "originPage": "brand-story",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "subpage-banner",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "background image + heading",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "sub-page visual header banners with a static background image and centered wordmark/heading",
+      "product and content sub-pages that reuse a common photo header",
+      "full-width image banners with an overlaid title and no CTA"
+    ],
+    "notSuitableFor": [
+      "video-backed heroes (use hero-video)",
+      "dark promotional CTA banners with oversized display text (use hero-clinic)",
+      "text-only heroes"
+    ]
+  },
+  "usage": {
+    "pagesUsing": [
+      "/juvederm/story-php",
+      "/product/volbella-php"
+    ],
+    "reuseCount": 2,
+    "lastUsed": "2026-07-31T14:45:00.000Z"
+  }
+}

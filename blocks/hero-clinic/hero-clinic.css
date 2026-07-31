@@ -1,0 +1,181 @@
+/*
+ * hero-clinic — "Find Juvéderm Clinic" CTA banner.
+ * Source (#find): a 50/50 split. Left half = plum panel (#53284f) holding a
+ * 300x420 dark box; three 62px Marcellus white headings (Find / Juvéderm /
+ * Clinic) sit at the box corners, and a "자세히보기 ↗" CTA reveals on hover.
+ * Right half = a clinic photo (find_img.jpg). Stacks on mobile.
+ */
+
+/* full-bleed band: drop the section max-width and vertical margin */
+.hero-clinic-container.section {
+  margin: 0;
+}
+
+.hero-clinic-container .hero-clinic-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.hero-clinic {
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- left plum panel --- */
+.hero-clinic .hero-clinic-panel {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 5%;
+  background: #53284f;
+}
+
+/* the clickable box */
+.hero-clinic .hero-clinic-box {
+  position: relative;
+  display: block;
+  width: 200px;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* dark image frame inside the box */
+.hero-clinic .hero-clinic-frame {
+  position: relative;
+  display: block;
+  background: #333;
+  overflow: hidden;
+}
+
+.hero-clinic .hero-clinic-frame picture {
+  display: block;
+  line-height: 0;
+}
+
+.hero-clinic .hero-clinic-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  transition: opacity 0.3s, filter 0.3s;
+}
+
+/* corner display headings */
+.hero-clinic .hero-clinic-box h4 {
+  position: absolute;
+  z-index: 6;
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-weight: 400;
+  font-size: 42px;
+  line-height: 1.1;
+  color: #fff;
+  text-shadow: 0 0 30px rgb(0 0 0 / 8%);
+}
+
+.hero-clinic .hero-clinic-word-one {
+  left: -30px;
+  top: -20px;
+}
+
+.hero-clinic .hero-clinic-word-two {
+  writing-mode: vertical-rl;
+  right: -25px;
+  top: 0;
+}
+
+.hero-clinic .hero-clinic-word-three {
+  right: -30px;
+  bottom: -20px;
+}
+
+/* hover CTA, centred over the box */
+.hero-clinic .hero-clinic-cta {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  text-align: center;
+  text-shadow: 0 0 30px rgb(0 0 0 / 8%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.hero-clinic .hero-clinic-arrow {
+  display: block;
+  padding-top: 8px;
+  font-size: 16px;
+  line-height: 1;
+  transform: rotate(0deg);
+}
+
+.hero-clinic .hero-clinic-box:hover .hero-clinic-frame img {
+  opacity: 0.3;
+  filter: blur(5px);
+}
+
+.hero-clinic .hero-clinic-box:hover .hero-clinic-cta {
+  opacity: 1;
+}
+
+/* --- right clinic photo --- */
+.hero-clinic .hero-clinic-photo {
+  min-height: 360px;
+  background: url('./find-clinic.jpg') no-repeat center / cover;
+}
+
+@media (width >= 900px) {
+  /* 50/50 row: plum panel left, photo right, matching the source 780px band */
+  .hero-clinic {
+    flex-direction: row;
+    min-height: 780px;
+  }
+
+  .hero-clinic .hero-clinic-panel,
+  .hero-clinic .hero-clinic-photo {
+    flex: 1 1 50%;
+    width: 50%;
+    min-width: 0;
+  }
+
+  .hero-clinic .hero-clinic-panel {
+    padding: 180px 96px;
+  }
+
+  .hero-clinic .hero-clinic-box {
+    width: 300px;
+  }
+
+  .hero-clinic .hero-clinic-box h4 {
+    font-size: 62px;
+  }
+
+  .hero-clinic .hero-clinic-word-one {
+    left: -70px;
+    top: -30px;
+  }
+
+  .hero-clinic .hero-clinic-word-two {
+    right: -30px;
+    top: 0;
+  }
+
+  .hero-clinic .hero-clinic-word-three {
+    right: -70px;
+    bottom: -30px;
+  }
+
+  .hero-clinic .hero-clinic-photo {
+    min-height: 0;
+  }
+}

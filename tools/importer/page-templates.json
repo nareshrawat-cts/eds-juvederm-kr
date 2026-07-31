@@ -1,0 +1,74 @@
+{
+  "metadata": {
+    "projectType": "doc"
+  },
+  "templates": [
+    {
+      "name": "homepage",
+      "urls": [
+        "https://www.juvederm.co.kr"
+      ],
+      "representativeUrl": "https://www.juvederm.co.kr",
+      "coverageGaps": [],
+      "description": "Homepage with video hero, brand about section, value-story carousel, product collection listing, and find-clinic CTA",
+      "blocks": [
+        { "name": "hero-video", "instances": ["#visual"] },
+        { "name": "columns-brand", "instances": ["#about"] },
+        { "name": "carousel-story", "instances": ["#story .story_roll"] },
+        { "name": "cards-product", "instances": ["#collection .collection_roll"] },
+        { "name": "hero-clinic", "instances": ["#find"] },
+        { "name": "section-collection", "instances": ["#collection"], "section": "grey" }
+      ],
+      "sections": [
+        { "id": "visual", "name": "Video Hero", "selector": "#visual", "style": null, "blocks": ["hero-video"], "defaultContent": [] },
+        { "id": "about", "name": "Brand Intro", "selector": "#about", "style": null, "blocks": ["columns-brand"], "defaultContent": [] },
+        { "id": "story", "name": "Value Story", "selector": "#story", "style": null, "blocks": ["carousel-story"], "defaultContent": ["#story .titArea"] },
+        { "id": "collection", "name": "Product Collection", "selector": "#collection", "style": "grey", "blocks": ["cards-product"], "defaultContent": ["#collection .titArea"] },
+        { "id": "find", "name": "Find Clinic CTA", "selector": "#find", "style": null, "blocks": ["hero-clinic"], "defaultContent": [] }
+      ]
+    },
+    {
+      "name": "brand-story",
+      "urls": [
+        "https://www.juvederm.co.kr/juvederm/story.php"
+      ],
+      "representativeUrl": "https://www.juvederm.co.kr/juvederm/story.php",
+      "coverageGaps": [],
+      "description": "Brand story page with visual hero, LNB sidebar navigation, value-story feature list, campaign video, and safety product list",
+      "blocks": [
+        { "name": "hero-banner", "instances": ["#visual"] },
+        { "name": "cards-feature", "instances": ["section.story_juvederm .story_juvederm_in"] },
+        { "name": "embed-video", "instances": ["section.story_campaign .video_wrap"] },
+        { "name": "cards-logo", "instances": ["section.story_safety ul.story_product"] },
+        { "name": "section-campaign", "instances": ["section.story_campaign"], "section": "grey" }
+      ],
+      "sections": [
+        { "id": "visual", "name": "Hero Banner", "selector": "#visual", "style": null, "blocks": ["hero-banner"], "defaultContent": [] },
+        { "id": "lnb", "name": "Sub Navigation", "selector": "#contents > div.lnb", "style": null, "blocks": [], "defaultContent": ["#contents > div.lnb"] },
+        { "id": "story_juvederm", "name": "Value Story", "selector": "section.story_juvederm", "style": null, "blocks": ["cards-feature"], "defaultContent": ["section.story_juvederm .titArea"] },
+        { "id": "story_campaign", "name": "Campaign", "selector": "section.story_campaign", "style": "grey", "blocks": ["embed-video"], "defaultContent": ["section.story_campaign .titArea"] },
+        { "id": "story_safety", "name": "Safety", "selector": "section.story_safety", "style": null, "blocks": ["cards-logo"], "defaultContent": ["section.story_safety .titArea"] }
+      ]
+    },
+    {
+      "name": "product-detail",
+      "urls": [
+        "https://www.juvederm.co.kr/product/volbella.php"
+      ],
+      "representativeUrl": "https://www.juvederm.co.kr/product/volbella.php",
+      "coverageGaps": [],
+      "description": "Product detail page with visual hero, LNB sidebar navigation, product info with feature list, and product/model imagery",
+      "blocks": [
+        { "name": "hero-banner", "instances": ["#visual"] },
+        { "name": "cards-feature", "instances": ["section.product_juvederm ul.feature_list"] },
+        { "name": "cards-logo", "instances": ["section.product_cut"] }
+      ],
+      "sections": [
+        { "id": "visual", "name": "Hero Banner", "selector": "#visual", "style": null, "blocks": ["hero-banner"], "defaultContent": [] },
+        { "id": "lnb", "name": "Product Sub Nav", "selector": "#contents > div.lnb", "style": null, "blocks": [], "defaultContent": ["#contents > div.lnb"] },
+        { "id": "product_juvederm", "name": "Product Info", "selector": "section.product_juvederm", "style": null, "blocks": ["cards-feature"], "defaultContent": ["section.product_juvederm .titArea", "section.product_juvederm .product_info"] },
+        { "id": "product_cut", "name": "Product Imagery", "selector": "section.product_cut", "style": null, "blocks": ["cards-logo"], "defaultContent": [] }
+      ]
+    }
+  ]
+}

@@ -1,1 +1,102 @@
 /* add global styles that can be loaded post LCP here */
+
+/* ------------------------------------------------------------------ *
+ * Floating quick-links widget (Instagram + KakaoTalk)
+ * Mirrors the source #quick: a sticky element pinned in the lower-left
+ * that scrolls down the page, with pills that expand on hover.
+ * ------------------------------------------------------------------ */
+.quick-links {
+  position: fixed;
+  left: 20px;
+  bottom: 24px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.quick-links-item {
+  display: flex;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 48px;
+  background: #fff;
+  box-shadow: 0 0 12px rgb(0 0 0 / 12%);
+  overflow: hidden;
+  text-decoration: none;
+  transition: width 0.4s ease;
+}
+
+.quick-links-icon {
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quick-links-icon img {
+  width: 30px;
+  height: 30px;
+  display: block;
+}
+
+.quick-links-label {
+  white-space: nowrap;
+  padding-right: 20px;
+  color: var(--text-color, #333);
+  font-family: var(--body-font-family);
+  font-size: 15px;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.quick-links-item:hover {
+  text-decoration: none;
+}
+
+.quick-links-item:hover .quick-links-label {
+  opacity: 1;
+  transition: opacity 0.3s ease 0.1s;
+}
+
+@media (width >= 900px) {
+  .quick-links {
+    left: max(20px, calc((100% - 1720px) / 2 + 20px));
+    bottom: auto;
+    top: 70vh;
+  }
+
+  .quick-links-item {
+    width: 78px;
+    height: 78px;
+    border-radius: 78px;
+  }
+
+  .quick-links-item:nth-child(1):hover {
+    width: 254px;
+  }
+
+  .quick-links-item:nth-child(2):hover {
+    width: 272px;
+  }
+
+  .quick-links-icon {
+    flex-basis: 78px;
+    width: 78px;
+    height: 78px;
+  }
+
+  .quick-links-icon img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .quick-links-label {
+    padding-right: 28px;
+    font-size: 20px;
+  }
+}

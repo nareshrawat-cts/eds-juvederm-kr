@@ -1,20 +1,123 @@
 footer {
-  background-color: var(--light-color);
-  font-size: var(--body-font-size-xs);
+  background-color: #fff;
+  border-top: 1px solid #e5e5e5;
+  color: var(--body-text-color);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+footer .footer {
+  max-width: 1200px;
+  margin: auto;
+  padding: 48px 24px;
 }
 
 footer .footer > div {
-  margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
-}
-
-footer .footer p {
   margin: 0;
 }
 
+footer .footer p {
+  margin: 0 0 6px;
+}
+
+footer .footer a:any-link {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+footer .footer a:hover {
+  text-decoration: underline;
+}
+
+/* top row: logo (left) + company/contact info (right), with bottom divider —
+   matches the source #footer .foot_top */
+footer .footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 32px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/* logo */
+footer .footer-logo {
+  flex: 0 0 auto;
+}
+
+footer .footer-logo img {
+  width: 200px;
+  height: auto;
+}
+
+/* company info + contact us: two label+lines groups side by side */
+footer .footer-info,
+footer .footer-info-groups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+footer .footer-info-group p strong {
+  display: block;
+  margin: 0 0 12px;
+  color: var(--text-color);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+footer .footer-info-group p {
+  margin: 0 0 7px;
+  font-size: 15px;
+}
+
+/* utility links (source .foot_info: 40px top gap under the divider) */
+footer .footer-links {
+  padding-top: 40px;
+}
+
+footer .footer-links ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin: 0 0 15px;
+  padding: 0;
+}
+
+footer .footer-links a:any-link {
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+/* legal / disclaimer */
+footer .footer-legal {
+  font-size: 12px;
+  color: #999;
+}
+
+footer .footer-legal p {
+  margin-bottom: 12px;
+}
+
+/* copyright */
+footer .footer-copyright {
+  margin-top: 24px;
+  font-size: 12px;
+  color: #999;
+}
+
 @media (width >= 900px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
+  footer .footer {
+    padding: 90px 32px;
+  }
+
+  footer .footer-logo img {
+    width: 285px;
+  }
+
+  footer .footer-info,
+  footer .footer-info-groups {
+    gap: 140px;
   }
 }

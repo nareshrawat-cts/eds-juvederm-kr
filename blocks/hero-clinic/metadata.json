@@ -1,0 +1,38 @@
+{
+  "variantName": "hero-clinic",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2026-07-31T14:20:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.juvederm.co.kr",
+    "originPage": "homepage",
+    "blockPosition": "bottom"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "spacious",
+    "purpose": "cta-banner",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "oversized display headings + CTA + image",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "full-bleed promotional CTA banners",
+      "dark end-of-page call-to-action sections with oversized text and imagery"
+    ],
+    "notSuitableFor": [
+      "top-of-page primary heroes",
+      "data-driven card grids",
+      "plain text sections"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-31T14:20:00.000Z"
+  }
+}

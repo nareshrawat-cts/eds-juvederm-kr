@@ -1,0 +1,10 @@
+{
+  "type": "doc",
+  "sites": {
+    "eds-juvederm-kr": {
+      "previewOrg": "nareshrawat-cts",
+      "previewSite": "eds-juvederm-kr",
+      "libraryUrl": "https://main--sta-boilerplate--aemdemos.aem.page/tools/sidekick/library.json"
+    }
+  }
+}
