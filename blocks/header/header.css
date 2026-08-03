@@ -220,14 +220,25 @@ header nav .nav-sections ul > li > ul > li {
     position: relative;
   }
 
-  /* spacing comes from per-item link padding (matches source ~18px sides) */
-  header nav .nav-sections .default-content-wrapper > ul > li > a {
+  /* the boilerplate wraps a single-link item's content in a <p>; neutralise it
+     so the link itself carries the spacing */
+  header nav .nav-sections .default-content-wrapper > ul > li > p {
+    margin: 0;
+  }
+
+  /* spacing comes from per-item link padding (source: a { padding: 32px 18px 31px }).
+     Horizontal 18px on each side gives the ~36px gap between items; vertical
+     padding sets the clickable nav height. Matches whether the link is a direct
+     child or wrapped in a <p>. */
+  header nav .nav-sections .default-content-wrapper > ul > li > a,
+  header nav .nav-sections .default-content-wrapper > ul > li > p > a {
     display: block;
     padding: 0 18px;
     color: var(--text-color);
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li > a:hover {
+  header nav .nav-sections .default-content-wrapper > ul > li > a:hover,
+  header nav .nav-sections .default-content-wrapper > ul > li > p > a:hover {
     color: var(--dark-color);
   }
 
