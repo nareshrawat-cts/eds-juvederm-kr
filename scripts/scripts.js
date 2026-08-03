@@ -45,6 +45,11 @@ if (window.trustedTypes && window.trustedTypes.createPolicy) {
  */
 async function loadFonts() {
   await loadCSS(`${window.hlx.codeBasePath}/styles/fonts.css`);
+  // Brand webfonts (Marcellus/Noto Sans KR from Google, Pretendard from jsDelivr)
+  // are loaded here, non-render-blocking, rather than as blocking <link>s in
+  // head.html — they carry font-display:swap so text paints immediately.
+  loadCSS('https://fonts.googleapis.com/css2?family=Marcellus&family=Noto+Sans+KR:wght@400;500;700&display=swap');
+  loadCSS('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
   try {
     if (!window.location.hostname.includes('localhost')) sessionStorage.setItem('fonts-loaded', 'true');
   } catch (e) {

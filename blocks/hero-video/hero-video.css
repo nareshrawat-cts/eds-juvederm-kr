@@ -32,12 +32,16 @@ main > .section.hero-video-container:first-child {
   background-color: rgb(83 40 79); /* #53284f source bg behind video */
 }
 
-/* Background video layer */
+/* Background video layer. A branded plum poster (wordmark on #53284f) is the
+   backdrop — it shows before the deferred iframe loads and remains visible if
+   the video fails to load (e.g. Vimeo domain restriction), so users never see
+   a black/broken frame. */
 .hero-video .hero-video-bg {
   position: absolute;
   inset: 0;
   overflow: hidden;
   z-index: 0;
+  background: #53284f url('./hero-poster.svg') no-repeat center / cover;
 }
 
 .hero-video .hero-video-iframe {

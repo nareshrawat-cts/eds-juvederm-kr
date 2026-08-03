@@ -50,6 +50,9 @@ const embedVimeo = (url, autoplay) => {
     params.set('muted', '1');
     params.set('autoplay', '1');
   }
+  // Do-Not-Track: stops Vimeo setting third-party tracking cookies, clearing
+  // the Lighthouse Best Practices penalty for the embed.
+  params.set('dnt', '1');
   const query = params.toString();
   const embedHTML = `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;">
       <iframe src="https://player.vimeo.com/video/${video}${query ? `?${query}` : ''}"

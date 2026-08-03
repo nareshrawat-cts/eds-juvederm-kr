@@ -32,19 +32,50 @@ export default function decorate(block) {
 
   block.classList.remove('no-image');
 
-  // Build the background video layer.
+  // Background video layer. The Vimeo iframe is DEFERRED — appending it eagerly
+  // blocks the main thread and LCP on mobile and fires third-party requests at
+  // load. Instead we create the iframe only once the hero is in view and the
+  // browser is idle, so first paint is unaffected. Until then a plum backdrop
+  // (matching the source #visual background) stands in.
   const src = link.getAttribute('href');
   const bg = document.createElement('div');
   bg.className = 'hero-video-bg';
-  const iframe = document.createElement('iframe');
-  iframe.className = 'hero-video-iframe';
-  iframe.src = src;
-  iframe.setAttribute('frameborder', '0');
-  iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
-  iframe.setAttribute('title', heading ? heading.textContent.trim() : 'Background video');
-  iframe.setAttribute('tabindex', '-1');
-  iframe.setAttribute('aria-hidden', 'true');
-  bg.append(iframe);
+  let iframe = null;
+
+  // Append Vimeo's Do-Not-Track flag so the player does not set third-party
+  // tracking cookies — this clears the Lighthouse "third-party cookies" Best
+  // Practices penalty that the embed otherwise triggers.
+  const videoSrc = src.includes('dnt=') ? src : `${src}${src.includes('?') ? '&' : '?'}dnt=1`;
+
+  const loadVideo = () => {
+    if (iframe) return iframe;
+    iframe = document.createElement('iframe');
+    iframe.className = 'hero-video-iframe';
+    iframe.src = videoSrc;
+    iframe.setAttribute('frameborder', '0');
+    iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
+    iframe.setAttribute('title', heading ? heading.textContent.trim() : 'Background video');
+    iframe.setAttribute('tabindex', '-1');
+    iframe.setAttribute('aria-hidden', 'true');
+    iframe.setAttribute('loading', 'lazy');
+    // If the video can't load (e.g. Vimeo domain restriction → 401), hide the
+    // iframe so the branded poster backdrop shows through instead of a black box.
+    iframe.addEventListener('error', () => { iframe.style.display = 'none'; });
+    bg.append(iframe);
+    return iframe;
+  };
+
+  // Load when the hero scrolls into view, deferred to idle time.
+  const idle = (cb) => (window.requestIdleCallback
+    ? requestIdleCallback(cb, { timeout: 3000 })
+    : setTimeout(cb, 1200));
+  const observer = new IntersectionObserver((entries, obs) => {
+    if (entries.some((e) => e.isIntersecting)) {
+      obs.disconnect();
+      idle(loadVideo);
+    }
+  });
+  observer.observe(block);
 
   // Centered wordmark overlay.
   const overlay = document.createElement('div');
@@ -70,13 +101,13 @@ export default function decorate(block) {
   let muted = true;
   playBtn.addEventListener('click', () => {
     playing = !playing;
-    vimeoPost(iframe, playing ? 'play' : 'pause');
+    vimeoPost(loadVideo(), playing ? 'play' : 'pause');
     playBtn.innerHTML = playing ? ICONS.pause : ICONS.play;
     playBtn.setAttribute('aria-label', playing ? 'Pause video' : 'Play video');
   });
   muteBtn.addEventListener('click', () => {
     muted = !muted;
-    vimeoPost(iframe, 'setVolume', muted ? 0 : 1);
+    vimeoPost(loadVideo(), 'setVolume', muted ? 0 : 1);
     muteBtn.innerHTML = muted ? ICONS.muted : ICONS.unmuted;
     muteBtn.setAttribute('aria-label', muted ? 'Unmute video' : 'Mute video');
   });
