@@ -58,6 +58,9 @@ export default function decorate(block) {
     iframe.setAttribute('tabindex', '-1');
     iframe.setAttribute('aria-hidden', 'true');
     iframe.setAttribute('loading', 'lazy');
+    // If the video can't load (e.g. Vimeo domain restriction → 401), hide the
+    // iframe so the branded poster backdrop shows through instead of a black box.
+    iframe.addEventListener('error', () => { iframe.style.display = 'none'; });
     bg.append(iframe);
     return iframe;
   };
