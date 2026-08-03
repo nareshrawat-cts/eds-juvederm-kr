@@ -77,6 +77,28 @@
   color: var(--text-color);
 }
 
+/* Value Story infographic — central decorative brand graphic (story-brand.svg).
+   On mobile it sits above the stacked icon list. */
+.cards-feature-value-story .cards-feature-brand {
+  order: -1;
+  margin: 0 auto 24px;
+  line-height: 0;
+}
+
+.cards-feature-value-story .cards-feature-brand img {
+  display: block;
+  width: 260px;
+  max-width: 70%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.cards-feature-value-story {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 @media (width >= 900px) {
   .cards-feature > ul {
     flex-direction: row;
@@ -88,5 +110,61 @@
   .cards-feature > ul > li {
     flex: 0 1 300px;
     max-width: 350px;
+  }
+
+  /* Value Story: radial arrangement — the 484px brand circle sits centred with
+     the three icon groups positioned around it (source: two below-centre,
+     one/three raised on the sides). */
+  .cards-feature-value-story {
+    position: relative;
+    min-height: 620px;
+  }
+
+  .cards-feature-value-story .cards-feature-brand {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin: 0;
+    transform: translateX(-50%);
+  }
+
+  .cards-feature-value-story .cards-feature-brand img {
+    width: 484px;
+    max-width: none;
+  }
+
+  .cards-feature-value-story > ul {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 100%;
+    max-width: 1044px;
+    min-height: 620px;
+    margin: 0 auto;
+  }
+
+  .cards-feature-value-story > ul > li {
+    position: absolute;
+    width: 350px;
+    max-width: 350px;
+  }
+
+  /* one — upper left */
+  .cards-feature-value-story > ul > li:nth-child(1) {
+    left: 0;
+    top: 293px;
+  }
+
+  /* two — lower centre */
+  .cards-feature-value-story > ul > li:nth-child(2) {
+    left: 50%;
+    top: 449px;
+    transform: translateX(-50%);
+  }
+
+  /* three — upper right */
+  .cards-feature-value-story > ul > li:nth-child(3) {
+    right: 0;
+    top: 293px;
   }
 }
