@@ -42,11 +42,16 @@ export default function decorate(block) {
   bg.className = 'hero-video-bg';
   let iframe = null;
 
+  // Append Vimeo's Do-Not-Track flag so the player does not set third-party
+  // tracking cookies — this clears the Lighthouse "third-party cookies" Best
+  // Practices penalty that the embed otherwise triggers.
+  const videoSrc = src.includes('dnt=') ? src : `${src}${src.includes('?') ? '&' : '?'}dnt=1`;
+
   const loadVideo = () => {
     if (iframe) return iframe;
     iframe = document.createElement('iframe');
     iframe.className = 'hero-video-iframe';
-    iframe.src = src;
+    iframe.src = videoSrc;
     iframe.setAttribute('frameborder', '0');
     iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
     iframe.setAttribute('title', heading ? heading.textContent.trim() : 'Background video');
