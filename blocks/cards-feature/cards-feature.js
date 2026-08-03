@@ -20,5 +20,20 @@ export default function decorate(block) {
     img.closest('picture').replaceWith(optimizedPic);
   });
   block.textContent = '';
+
+  // "Value Story" infographic variant (story page): the source shows a central
+  // circular brand graphic behind the 3 icon/caption groups. Detect this variant
+  // by its paragraph captions (the product-page variant uses headings instead)
+  // and prepend the decorative brand image. The image is purely decorative.
+  const isValueStory = !ul.querySelector('.cards-feature-card-body h3, .cards-feature-card-body h4, .cards-feature-card-body h5');
+  if (isValueStory) {
+    block.classList.add('cards-feature-value-story');
+    const brand = document.createElement('div');
+    brand.className = 'cards-feature-brand';
+    brand.setAttribute('aria-hidden', 'true');
+    brand.innerHTML = `<img src="${new URL('./story-brand.svg', import.meta.url).href}" alt="" loading="lazy" width="484" height="484">`;
+    block.append(brand);
+  }
+
   block.append(ul);
 }
