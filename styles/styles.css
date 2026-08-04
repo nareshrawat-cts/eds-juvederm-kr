@@ -367,3 +367,83 @@ main .section.dark h6,
 main .section.dark p {
   color: #fff;
 }
+
+/* ------------------------------------------------------------------ *
+ * Product-detail pages (volbella/volift/…): the sub-nav (.lnb) and the
+ * product-info title are default content, so they're styled here rather
+ * than in a block. Scoped to pages whose first section is the hero-banner.
+ * ------------------------------------------------------------------ */
+
+/* Product sub-nav: horizontal, centred row with a bottom divider (source .lnb). */
+.product-subnav {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 40px;
+  margin: 0 auto;
+  padding: 0 0 1px;
+  max-width: 1350px;
+  border-bottom: 1px solid rgb(34 34 34 / 15%);
+}
+
+.product-subnav > li {
+  margin: 0;
+  padding: 20px 0;
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.product-subnav > li a:any-link {
+  color: var(--body-text-color);
+  text-decoration: none;
+}
+
+/* Active product: the current page's item takes the brand accent + weight 600
+   (source .lnb .on — colour only, no underline). */
+.product-subnav > li.active {
+  font-weight: 600;
+}
+
+.product-subnav > li.active a:any-link {
+  color: var(--product-accent, rgb(170 47 121));
+}
+
+/* Product-info title (source .product_info .fs43): "JUVÉDERM® <name>" — the
+   name run is emphasised in the brand plum; "WITH LIDOCAINE" sits below. */
+main:has(> .section.hero-banner-container) .cards-feature-container .default-content-wrapper h3 {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text-color);
+  text-align: center;
+}
+
+main:has(> .section.hero-banner-container) .cards-feature-container .default-content-wrapper h3 .product-name {
+  color: var(--product-accent, rgb(170 47 121));
+}
+
+main:has(> .section.hero-banner-container) .cards-feature-container .default-content-wrapper h4 {
+  margin: 8px 0 0;
+  font-family: var(--heading-font-family);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: #999;
+  text-align: center;
+}
+
+@media (width >= 900px) {
+  main:has(> .section.hero-banner-container) .cards-feature-container .default-content-wrapper h3 {
+    font-size: 43px;
+  }
+
+  main:has(> .section.hero-banner-container) .cards-feature-container .default-content-wrapper h4 {
+    font-size: 28px;
+  }
+}

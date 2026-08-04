@@ -235,6 +235,59 @@ function removeMetadataBlocks(main) {
  * Decorates the main element.
  * @param {Element} main The main element
  */
+/**
+ * Product-detail pages: highlight the sub-nav item for the current product and
+ * emphasise the product-name run in the info title (source .lnb .on / .pointColor).
+ * The sub-nav and title are default content, so this is done here.
+ * @param {Element} main
+ */
+// Per-product brand accent (source: each product page's key colour). Used to
+// tint the active sub-nav item and the product-name run in the title.
+const PRODUCT_ACCENTS = {
+  volbella: 'rgb(170 47 121)',
+  volift: 'rgb(53 43 155)',
+  voluma: 'rgb(0 132 137)',
+  volux: 'rgb(120 87 61)',
+  ultra: 'rgb(0 112 186)',
+  ultraplus: 'rgb(0 112 186)',
+};
+
+function decorateProductNav(main) {
+  if (!main.querySelector('.hero-banner-container')) return;
+  const here = window.location.pathname.replace(/\.php$/, '').replace(/\/$/, '');
+  // Apply the per-product accent as a CSS variable so styling stays in CSS.
+  const slug = here.split('/').pop();
+  if (PRODUCT_ACCENTS[slug]) main.style.setProperty('--product-accent', PRODUCT_ACCENTS[slug]);
+  // Sub-nav: the plain <ul> in the section right after the hero-banner.
+  const subnav = [...main.querySelectorAll('.section')]
+    .find((s) => !s.classList.contains('hero-banner-container')
+      && ![...s.classList].some((c) => c.startsWith('cards-')))
+    ?.querySelector('.default-content-wrapper > ul');
+  if (subnav) {
+    subnav.classList.add('product-subnav');
+    subnav.querySelectorAll(':scope > li').forEach((li) => {
+      const href = (li.querySelector('a')?.getAttribute('href') || '').replace(/\.php$/, '').replace(/\/$/, '');
+      if (href && here.endsWith(href)) li.classList.add('active');
+    });
+  }
+  // Product title: wrap the product-name text run (between "JUVÉDERM" and the
+  // trailing marks) so it can take the brand accent colour.
+  const title = main.querySelector('.cards-feature-container .default-content-wrapper h3');
+  if (title && !title.querySelector('.product-name')) {
+    [...title.childNodes].forEach((node) => {
+      if (node.nodeType === Node.TEXT_NODE && node.textContent.trim() && !/JUVÉDERM/i.test(node.textContent)) {
+        const span = document.createElement('span');
+        span.className = 'product-name';
+        node.replaceWith(span);
+        span.textContent = node.textContent;
+        // also colour a trailing ® that follows the name
+        const next = span.nextElementSibling;
+        if (next && next.tagName === 'SUP') next.classList.add('product-name');
+      }
+    });
+  }
+}
+
 export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
@@ -243,6 +296,7 @@ export function decorateMain(main) {
   removeMetadataBlocks(main);
   decorateBlocks(main);
   decorateButtons(main);
+  decorateProductNav(main);
 }
 
 /**
