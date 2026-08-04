@@ -16,6 +16,16 @@
 }
 
 /*
+ * The section following the hero sits flush against the video on the source
+ * (#contents starts at the exact bottom of #visual, 0 gap). Cancel the
+ * boilerplate's default 40px section top-margin so no white gap appears
+ * between the video and the "Naturally you" band below it.
+ */
+.section.hero-video-container + .section {
+  margin-top: 0;
+}
+
+/*
  * The header is fixed and overlays the hero (as on the source, where #visual
  * starts at top:0 behind the fixed header). Pull the hero up under the header
  * so the video fills exactly one viewport (100vh) from the very top, instead
