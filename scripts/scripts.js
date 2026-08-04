@@ -241,15 +241,17 @@ function removeMetadataBlocks(main) {
  * The sub-nav and title are default content, so this is done here.
  * @param {Element} main
  */
-// Per-product brand accent (source: each product page's key colour). Used to
-// tint the active sub-nav item and the product-name run in the title.
+// Per-product brand accent (source: each product page's `.{slug}_cont
+// .pro_name` text-stroke colour). Used to tint the active sub-nav item and the
+// product-name run in the title. voluma's source accent is black, so it takes
+// the site's default dark text colour.
 const PRODUCT_ACCENTS = {
   volbella: 'rgb(170 47 121)',
   volift: 'rgb(53 43 155)',
-  voluma: 'rgb(0 132 137)',
-  volux: 'rgb(120 87 61)',
-  ultra: 'rgb(0 112 186)',
-  ultraplus: 'rgb(0 112 186)',
+  voluma: 'var(--text-color)',
+  volux: 'rgb(32 100 138)',
+  ultra: 'rgb(189 63 69)',
+  ultraplus: 'rgb(223 134 0)',
 };
 
 function decorateProductNav(main) {
