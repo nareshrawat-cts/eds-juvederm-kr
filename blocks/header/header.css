@@ -243,23 +243,26 @@ header nav .nav-sections ul > li > ul > li {
   }
 
   /* Submenu panel — the source is a hover "mega menu": hovering the nav bar
-     drops every item's submenu at once, each centered beneath its parent link.
-     Hidden (not display:none, so it can fade/slide) until the sections are
-     hovered or keyboard-focused. */
+     drops every item's submenu at once, each column aligned beneath its parent
+     link. Each submenu is constrained to its parent item's width and its
+     labels WRAP within that column (source: submenu width ≈ parent width),
+     which is what keeps neighbouring columns from overlapping. Hidden (not
+     display:none, so it can fade/slide) until the sections are hovered or
+     keyboard-focused. */
   header nav .nav-sections .default-content-wrapper > ul > li > ul {
     position: absolute;
     top: 100%;
-    left: 50%;
-    transform: translateX(-50%) translateY(6px);
+    left: 0;
+    transform: translateY(6px);
     display: flex;
     flex-direction: column;
     gap: 15px;
     margin: 0;
-    padding: 22px 12px 26px;
-    width: max-content;
-    min-width: 160px;
+    padding: 22px 4px 26px;
+    width: 100%;
+    box-sizing: border-box;
     text-align: center;
-    white-space: nowrap;
+    white-space: normal;
     visibility: hidden;
     opacity: 0;
     pointer-events: none;
@@ -270,7 +273,7 @@ header nav .nav-sections ul > li > ul > li {
   header nav .nav-sections:focus-within .default-content-wrapper > ul > li > ul {
     visibility: visible;
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
     pointer-events: auto;
   }
 
