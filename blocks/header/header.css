@@ -311,7 +311,9 @@ header nav .nav-sections ul > li > ul > li {
 
   header .nav-wrapper:has(.nav-sections:hover)::after,
   header .nav-wrapper:has(.nav-sections:focus-within)::after {
-    height: 260px;
+    /* tall enough to contain the deepest submenu (product list, 6 items
+       wrapping to 2 lines ≈ 340px) so no items spill out below the panel */
+    height: 345px;
   }
 }
 
