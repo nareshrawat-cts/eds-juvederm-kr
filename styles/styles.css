@@ -321,6 +321,13 @@ main > .section {
   margin: 40px 0;
 }
 
+/* Collapse empty sections (e.g. the residual div left by a metadata-only
+   block) so their margins don't create a stray gap — most visibly a white
+   band above the footer. */
+main > .section:empty {
+  margin: 0;
+}
+
 main > .section > div {
   max-width: 1200px;
   margin: auto;
