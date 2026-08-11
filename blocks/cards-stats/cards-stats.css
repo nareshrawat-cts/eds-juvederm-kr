@@ -1,0 +1,82 @@
+/*
+ * cards-stats — HarmonyCa results stat row (Figma 84:357).
+ * Three equal cards: droplet icon + large accent number + supporting line.
+ */
+
+/* Match Figma section height (~273px). */
+main .cards-stats-container {
+  margin-block: 0;
+  padding-block: 40px;
+}
+
+.cards-stats {
+  /* Accessible teal for the big stat numbers (clears contrast on white). */
+  --stats-value-color: #00719c;
+  --stats-body-color: #171717;
+  --stats-icon-bg: #edf0ff;
+  --stats-card-bg: #fff;
+  --stats-card-border: #e5e7eb;
+  --stats-value-font: 'Saol Standard', 'Cormorant Garamond', georgia, 'Times New Roman', serif;
+  --stats-body-font: 'Founders Grotesk', 'Inter', var(--body-font-family, arial, sans-serif);
+}
+
+/* The block decorates into a nested <ul> of stat <li>s. */
+.cards-stats ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.cards-stats li {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  background: var(--stats-card-bg);
+  border: 1px solid var(--stats-card-border);
+  border-radius: 12px;
+}
+
+.cards-stats .cards-stats-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--stats-icon-bg);
+}
+
+.cards-stats .cards-stats-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.cards-stats h3 {
+  margin: 0;
+  font-family: var(--stats-value-font);
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 1.1;
+  color: var(--stats-value-color);
+}
+
+.cards-stats p {
+  margin: 0;
+  font-family: var(--stats-body-font);
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.2;
+  color: var(--stats-body-color);
+}
+
+@media (width < 900px) {
+  .cards-stats {
+    grid-template-columns: 1fr;
+  }
+}

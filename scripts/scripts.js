@@ -50,6 +50,15 @@ async function loadFonts() {
   // head.html — they carry font-display:swap so text paints immediately.
   loadCSS('https://fonts.googleapis.com/css2?family=Marcellus&family=Noto+Sans+KR:wght@400;500;700&display=swap');
   loadCSS('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+  // HarmonyCa microsite fonts. Two layers, both font-display:swap:
+  //  1. harmony-fonts.css declares the LICENSED faces (Saol Standard,
+  //     Founders Grotesk) from /fonts/ — used the moment those files exist.
+  //  2. the Google substitutes (Cormorant Garamond, Inter) are the fallbacks
+  //     baked into every block's font stack until the licensed files land.
+  if (window.location.pathname.includes('harmony')) {
+    loadCSS(`${window.hlx.codeBasePath}/styles/harmony-fonts.css`);
+    loadCSS('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+  }
   try {
     if (!window.location.hostname.includes('localhost')) sessionStorage.setItem('fonts-loaded', 'true');
   } catch (e) {
@@ -355,7 +364,12 @@ function buildQuickLinks(doc) {
 
 async function loadLazy(doc) {
   loadHeader(doc.querySelector('body > header'));
-  buildQuickLinks(doc);
+  // The floating Instagram/KakaoTalk quick-links widget is Juvederm-only.
+  // Skip it on the HarmonyCa microsite (its design has no floating widget —
+  // social links live in the footer instead).
+  if (!window.location.pathname.includes('harmony')) {
+    buildQuickLinks(doc);
+  }
 
   const main = doc.querySelector('main');
   await loadSections(main);

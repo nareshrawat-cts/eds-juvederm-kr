@@ -1,0 +1,269 @@
+/* stylelint-disable no-descending-specificity -- intentional :first-child/:last-child overrides */
+
+/*
+ * footer-harmony — standalone HarmonyCa footer (Figma 87:455).
+ * Dark-navy band: pill CTA + socials, divider, column links + logos, divider,
+ * centred legal links, small-print, decorative dotted arc bottom-right.
+ */
+
+/* Full-bleed: the Juvederm footer block wrapper constrains width
+   (max-width 1200 + side margins); neutralise it so the HarmonyCa navy band
+   spans the whole viewport edge-to-edge, like the header. */
+footer .footer:has(.footer-harmony) {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-harmony {
+  --fh-navy: #071d49;
+  --fh-text: #fff;
+
+  /* Figma keeps all footer text white — the secondary/muted tone is simply a
+     lower-opacity white, NOT a blue tint. */
+  --fh-muted: rgb(255 255 255 / 70%);
+  --fh-rule: rgb(255 255 255 / 18%);
+  --fh-heading-font: 'Cormorant Garamond', georgia, 'Times New Roman', serif;
+  --fh-body-font: 'Founders Grotesk', 'Inter', var(--body-font-family, arial, sans-serif);
+
+  position: relative;
+  width: 100%;
+  background: var(--fh-navy);
+  color: var(--fh-text);
+  overflow: hidden;
+}
+
+.footer-harmony .footer-harmony-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 48px max(44px, calc((100% - 1440px) / 2 + 44px)) 56px;
+  font-family: var(--fh-body-font);
+}
+
+/* All footer links are white — beat the Juvederm `footer .footer a:any-link`
+   rule (which colours them dark #333). Matching specificity + later cascade. */
+footer .footer-harmony a:any-link {
+  color: var(--fh-text);
+}
+
+/* ---- Top row: pill CTA + socials ---- */
+.footer-harmony .footer-harmony-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--fh-rule);
+}
+
+.footer-harmony .footer-harmony-cta p {
+  margin: 0;
+}
+
+.footer-harmony a.footer-harmony-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 26px;
+  border: 1px solid rgb(255 255 255 / 55%);
+  border-radius: 999px;
+  color: var(--fh-text);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.footer-harmony a.footer-harmony-pill:hover {
+  background: #fff;
+  color: var(--fh-navy);
+}
+
+.footer-harmony p.footer-harmony-socials {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.footer-harmony .footer-harmony-socials a {
+  display: inline-flex;
+  width: 26px;
+  height: 26px;
+  color: var(--fh-text);
+}
+
+.footer-harmony .footer-harmony-socials svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---- Mid row: column links + logos ---- */
+.footer-harmony .footer-harmony-mid {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 40px 0;
+  border-bottom: 1px solid var(--fh-rule);
+}
+
+.footer-harmony .footer-harmony-collinks {
+  list-style: none;
+  display: flex;
+  gap: 56px;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-harmony .footer-harmony-collinks a {
+  color: var(--fh-text);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.footer-harmony .footer-harmony-collinks a:hover {
+  color: var(--fh-muted);
+}
+
+.footer-harmony .footer-harmony-brand {
+  text-align: right;
+  line-height: 1.4;
+}
+
+.footer-harmony .footer-harmony-brand p {
+  margin: 0;
+}
+
+/* Wordmark line with the arc ring mark around it (Figma). */
+.footer-harmony .footer-harmony-wordmark {
+  position: relative;
+  display: inline-block;
+  padding: 6px 16px;
+}
+
+.footer-harmony .footer-harmony-mark {
+  position: absolute;
+  inset: -2px -8px;
+  pointer-events: none;
+}
+
+.footer-harmony .footer-harmony-mark svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.footer-harmony .footer-harmony-brand strong {
+  position: relative;
+  font-family: var(--fh-heading-font);
+  font-weight: 400;
+  font-size: 24px;
+}
+
+/* Allergan Aesthetics lockup: prominent wordmark + small "an AbbVie company"
+   underneath (Figma), sitting below the HArmonyCa mark, right-aligned. */
+.footer-harmony .footer-harmony-brand p:last-child {
+  margin-top: 22px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: rgb(255 255 255 / 70%);
+}
+
+.footer-harmony .footer-harmony-brand p:last-child strong {
+  display: block;
+  font-family: var(--fh-body-font);
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: 0.01em;
+  color: var(--fh-text);
+  margin-bottom: 2px;
+}
+
+/* ---- Legal links (centred) ---- */
+.footer-harmony .footer-harmony-legal {
+  padding: 32px 0;
+}
+
+/* The links live inside a <p>; make that the flex row so they get even
+   spacing (source: ~28px between items), centred. */
+.footer-harmony .footer-harmony-legal p {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 28px;
+}
+
+.footer-harmony .footer-harmony-legal a {
+  color: var(--fh-text);
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.footer-harmony .footer-harmony-legal a:hover {
+  color: var(--fh-muted);
+}
+
+/* ---- Legal small-print ---- */
+.footer-harmony .footer-harmony-text {
+  max-width: 1100px;
+}
+
+.footer-harmony .footer-harmony-text p {
+  margin: 0 0 12px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: rgb(255 255 255 / 55%);
+}
+
+/* ---- Decorative dotted arc, bottom-right (Figma) ---- */
+.footer-harmony .footer-harmony-arc {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 360px;
+  height: 360px;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgb(235 111 49 / 55%) 1.4px, transparent 1.6px);
+  background-size: 14px 14px;
+
+  /* fade into a quarter-ring band hugging the corner */
+  mask-image: radial-gradient(circle at 100% 100%, transparent 190px, #000 192px, #000 300px, transparent 320px);
+  mask-repeat: no-repeat;
+}
+
+@media (width < 900px) {
+  .footer-harmony .footer-harmony-inner {
+    padding: 40px 20px;
+  }
+
+  .footer-harmony .footer-harmony-top,
+  .footer-harmony .footer-harmony-mid {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .footer-harmony .footer-harmony-brand {
+    text-align: left;
+  }
+
+  .footer-harmony .footer-harmony-collinks {
+    gap: 28px;
+  }
+
+  .footer-harmony .footer-harmony-legal {
+    justify-content: flex-start;
+  }
+
+  .footer-harmony .footer-harmony-arc {
+    width: 200px;
+    height: 200px;
+  }
+}

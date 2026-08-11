@@ -1,4 +1,4 @@
-import { getMetadata } from '../../scripts/aem.js';
+import { getMetadata, loadCSS } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
 /**
@@ -10,6 +10,22 @@ export default async function decorate(block) {
   const footerMeta = getMetadata('footer');
   const footerPath = footerMeta ? new URL(footerMeta, window.location).pathname : '/footer';
   const fragment = await loadFragment(footerPath);
+
+  // HarmonyCa is a separate site with its own standalone footer block. When
+  // the footer fragment targets footer-harmony, delegate to that block instead
+  // of the Juvederm footer decoration below. Juvederm footer code untouched.
+  if (footerPath.includes('footer-harmony')) {
+    block.textContent = '';
+    const footerHarmony = document.createElement('div');
+    footerHarmony.className = 'footer-harmony block';
+    footerHarmony.dataset.blockName = 'footer-harmony';
+    while (fragment.firstElementChild) footerHarmony.append(fragment.firstElementChild);
+    block.append(footerHarmony);
+    loadCSS(`${window.hlx.codeBasePath}/blocks/footer-harmony/footer-harmony.css`);
+    const { default: decorateFooterHarmony } = await import('../footer-harmony/footer-harmony.js');
+    decorateFooterHarmony(footerHarmony);
+    return;
+  }
 
   // Resolve fragment-relative image paths (e.g. "images/footer-logo.svg")
   // against the fragment's own directory so they work on nested pages too.

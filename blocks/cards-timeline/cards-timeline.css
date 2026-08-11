@@ -1,0 +1,181 @@
+/* stylelint-disable no-descending-specificity -- intentional :first-child/:last-child overrides */
+
+/*
+ * cards-timeline — "A simple, guided journey" (Figma 110:586).
+ * Left intro column + right vertical timeline of numbered step cards.
+ * Each card: numbered circle marker on a connecting line, then a white
+ * rounded card with (phase | title), body, and a small photo on the right.
+ */
+
+/* Full-bleed light band — continues the same #edf0ff band as the
+   "What it treats" section above so the two read as one region (Figma). */
+main .cards-timeline-container {
+  background: #edf0ff;
+  padding-block: 94px;
+  margin-block: 0;
+}
+
+.cards-timeline {
+  /* Accessible text accent (>=4.5:1 on white); brighter brand blue for the
+     numbered-step marker ring/line which are large graphical elements. */
+  --tl-accent: #00719c;
+  --tl-marker: #00a3e0;
+  --tl-navy: #071d49;
+  --tl-body: #171717;
+  --tl-card-bg: #fff;
+  --tl-card-border: #e5e7eb;
+  --tl-heading-font: 'Saol Standard', 'Cormorant Garamond', georgia, 'Times New Roman', serif;
+  --tl-body-font: 'Founders Grotesk', 'Inter', var(--body-font-family, arial, sans-serif);
+
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Intro column (eyebrow + heading + subtext), authored as the first row. */
+.cards-timeline .cards-timeline-intro p:first-child {
+  font-family: var(--tl-body-font);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.54px;
+  text-transform: uppercase;
+  color: var(--tl-accent);
+  margin: 0 0 16px;
+}
+
+.cards-timeline .cards-timeline-intro h2 {
+  font-family: var(--tl-heading-font);
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 44px;
+  color: var(--tl-navy);
+  margin: 0 0 16px;
+}
+
+.cards-timeline .cards-timeline-intro em {
+  font-style: italic;
+  color: var(--tl-navy);
+}
+
+.cards-timeline .cards-timeline-intro p {
+  font-family: var(--tl-body-font);
+  font-weight: 300;
+  font-size: 18px;
+  color: var(--tl-body);
+  margin: 0;
+}
+
+/* Steps list */
+.cards-timeline .cards-timeline-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cards-timeline .cards-timeline-steps > li {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 20px;
+  position: relative;
+}
+
+/* Numbered marker + connecting vertical line. */
+.cards-timeline .cards-timeline-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--tl-marker);
+  color: var(--tl-accent);
+  font-family: var(--tl-body-font);
+  font-size: 18px;
+  background: #fff;
+  z-index: 1;
+}
+
+.cards-timeline .cards-timeline-steps > li:not(:last-child) .cards-timeline-num::after {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 19px;
+  width: 1.5px;
+  height: calc(100% - 24px);
+  background: var(--tl-marker);
+  z-index: 0;
+}
+
+/* Step card */
+.cards-timeline .cards-timeline-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 24px;
+  background: var(--tl-card-bg);
+  border: 1px solid var(--tl-card-border);
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgb(7 29 73 / 6%);
+}
+
+.cards-timeline .cards-timeline-card h3 {
+  margin: 0 0 8px;
+  font-family: var(--tl-body-font);
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--tl-accent);
+}
+
+/* Title run after the phase, with a thin divider between them (Figma). */
+.cards-timeline .cards-timeline-card h3 span {
+  color: var(--tl-body);
+  font-weight: 400;
+}
+
+.cards-timeline .cards-timeline-card h3 span::before {
+  content: '';
+  display: inline-block;
+  width: 1px;
+  height: 14px;
+  margin: 0 12px -2px;
+  background: rgb(7 29 73 / 25%);
+}
+
+.cards-timeline .cards-timeline-card p {
+  margin: 0;
+  font-family: var(--tl-body-font);
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--tl-body);
+}
+
+.cards-timeline .cards-timeline-card picture,
+.cards-timeline .cards-timeline-card img {
+  width: 96px;
+  height: 72px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+@media (width < 900px) {
+  .cards-timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .cards-timeline .cards-timeline-card {
+    grid-template-columns: 1fr;
+  }
+
+  .cards-timeline .cards-timeline-card picture,
+  .cards-timeline .cards-timeline-card img {
+    width: 100%;
+    height: 140px;
+  }
+}

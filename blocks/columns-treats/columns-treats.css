@@ -1,0 +1,154 @@
+/* stylelint-disable no-descending-specificity -- intentional :first-child/:last-child overrides */
+
+/*
+ * columns-treats — "Lift and contour your natural bounce" (Figma 73:3220).
+ * 2-column: left text + CTA, right annotated face photo with callouts.
+ * Sits on a full-bleed light-lavender band (#edf0ff), like the source.
+ */
+
+/* Full-bleed light band behind the whole section (Figma #edf0ff). The section
+   wrapper is constrained; paint the band on the container edge-to-edge and add
+   the vertical rhythm here. */
+main .columns-treats-container {
+  background: #edf0ff;
+  padding-block: 110px;
+  margin-block: 0;
+}
+
+/* Join seamlessly with the following "What to expect" band (no white gap).
+   Both bands share the same colour so internal top padding stays seamless. */
+main .columns-treats-container + .cards-timeline-container {
+  margin-top: 0;
+}
+
+.columns-treats {
+  /* Accessible text accent (>=4.5:1 on the #edf0ff band). */
+  --tr-accent: #00719c;
+  --tr-navy: #071d49;
+  --tr-body: #171717;
+  --tr-cta-bg: #0082b3;
+  --tr-cta-color: #fff;
+  --tr-heading-font: 'Saol Standard', 'Cormorant Garamond', georgia, 'Times New Roman', serif;
+  --tr-body-font: 'Founders Grotesk', 'Inter', var(--body-font-family, arial, sans-serif);
+
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  align-items: center;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.columns-treats .columns-treats-text p:first-child {
+  font-family: var(--tr-body-font);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.54px;
+  text-transform: uppercase;
+  color: var(--tr-accent);
+  margin: 0 0 16px;
+}
+
+.columns-treats h2 {
+  font-family: var(--tr-heading-font);
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 44px;
+  color: var(--tr-navy);
+  margin: 0 0 16px;
+}
+
+.columns-treats h2 em {
+  font-style: italic;
+  color: var(--tr-navy);
+}
+
+.columns-treats .columns-treats-text p {
+  font-family: var(--tr-body-font);
+  font-weight: 300;
+  font-size: 18px;
+  color: var(--tr-body);
+  margin: 0 0 24px;
+}
+
+.columns-treats a.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 32px;
+  border-radius: 8px;
+  background: var(--tr-cta-bg);
+  color: var(--tr-cta-color);
+  font-family: var(--tr-body-font);
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 0.54px;
+  text-decoration: none;
+}
+
+.columns-treats a.button:hover {
+  opacity: 0.9;
+}
+
+/* Right column: annotated photo + callouts, over a light card. */
+.columns-treats .columns-treats-media {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 0;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.columns-treats .columns-treats-photo {
+  height: 100%;
+}
+
+.columns-treats .columns-treats-photo picture,
+.columns-treats .columns-treats-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Callout list (Lift your cheeks / Smooth nasolabial folds / Define jawline) */
+.columns-treats .columns-treats-callouts {
+  list-style: none;
+  margin: 0;
+  padding: 28px 28px 28px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 22px;
+}
+
+.columns-treats .columns-treats-callouts h3 {
+  margin: 0 0 4px;
+  font-family: var(--tr-body-font);
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--tr-navy);
+}
+
+.columns-treats .columns-treats-callouts p {
+  margin: 0;
+  font-family: var(--tr-body-font);
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--tr-body);
+}
+
+@media (width < 900px) {
+  .columns-treats .columns-treats-media {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (width < 900px) {
+  .columns-treats {
+    grid-template-columns: 1fr;
+  }
+}

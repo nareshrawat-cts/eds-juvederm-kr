@@ -1,0 +1,182 @@
+/*
+ * hero-harmony — HarmonyCa gradient hero / CTA banner.
+ * Figma "Home - Overview" hero (70:2459) and "Find your bounce" CTA (87:457).
+ *
+ * Architecture (matches Figma layers, NOT the flattened export):
+ *   - CSS gradient background: linear-gradient(90deg,#a4c0f6,#f2e6f1)
+ *   - text-free woman photo pinned to the right (authored as a picture row)
+ *   - live HTML text/CTAs on the left (heading, subtext, buttons)
+ *
+ * Authored rows (any of): background picture, heading, subtext, CTA links.
+ */
+
+/* Full-bleed: override the boilerplate section max-width/padding wrapper so
+   the hero spans the whole viewport at any resolution. */
+.hero-harmony-container .hero-harmony-wrapper,
+.hero-harmony-container > div {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hero-harmony {
+  --hero-harmony-navy: #071d49;
+  --hero-harmony-accent: #00a3e0;
+  --hero-harmony-cta-bg: #ff6a39;
+  --hero-harmony-cta-color: #fff;
+  --hero-harmony-cta2-border: #000;
+  --hero-harmony-cta2-color: #171717;
+  --hero-harmony-grad: linear-gradient(90deg, #a4c0f6 0%, #f2e6f1 100%);
+  --hero-harmony-heading-font: 'Saol Standard', 'Cormorant Garamond', georgia, 'Times New Roman', serif;
+  --hero-harmony-body-font: 'Founders Grotesk', 'Inter', var(--body-font-family, arial, sans-serif);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  min-height: 532px;
+  box-sizing: border-box;
+
+  /* Full-bleed band; content aligns to a centred 1440px column so the text
+     keeps a consistent left offset instead of drifting on ultra-wide screens. */
+  padding-block: 60px;
+  padding-inline: max(120px, calc((100% - 1440px) / 2 + 120px));
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--hero-harmony-grad);
+}
+
+/* Woman photo — pinned to the right half, text-free (cropped from export). */
+.hero-harmony picture {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 50%;
+  z-index: -1;
+}
+
+.hero-harmony picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: right bottom;
+}
+
+/* Text column, left-aligned over the light gradient. */
+.hero-harmony h1,
+.hero-harmony h2,
+.hero-harmony .hero-harmony-subtext {
+  max-width: 584px;
+  margin: 0;
+}
+
+.hero-harmony h1,
+.hero-harmony h2 {
+  font-family: var(--hero-harmony-heading-font);
+  font-weight: 300;
+  font-size: 80px;
+  line-height: 1;
+  color: var(--hero-harmony-navy);
+}
+
+/* Accent word (second line) — matches Figma's light-blue italic "Bounce". */
+.hero-harmony h1 em,
+.hero-harmony h2 em {
+  color: var(--hero-harmony-accent);
+  font-style: italic;
+}
+
+.hero-harmony .hero-harmony-subtext,
+.hero-harmony p:not(.button-container) {
+  font-family: var(--hero-harmony-body-font);
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 1.2;
+  color: var(--hero-harmony-navy);
+}
+
+/* CTAs */
+.hero-harmony .hero-harmony-actions {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.hero-harmony .hero-harmony-actions p {
+  margin: 0;
+}
+
+/* Raise specificity past the boilerplate `main a.button` reset (which strips
+   padding/radius and forces underline). */
+.hero-harmony .hero-harmony-actions p a.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-family: var(--hero-harmony-body-font);
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 0.54px;
+  line-height: 22px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* primary (orange) — first CTA */
+.hero-harmony .hero-harmony-actions p:first-child a.button {
+  background: var(--hero-harmony-cta-bg);
+  color: var(--hero-harmony-cta-color);
+  border: 1px solid var(--hero-harmony-cta-bg);
+}
+
+/* secondary (outline) — second CTA */
+.hero-harmony .hero-harmony-actions p:nth-child(2) a.button {
+  background: transparent;
+  color: var(--hero-harmony-cta2-color);
+  border: 1px solid var(--hero-harmony-cta2-border);
+}
+
+.hero-harmony .hero-harmony-actions p a.button:hover {
+  opacity: 0.9;
+  text-decoration: none;
+}
+
+/* "Find your bounce" CTA variant — same band, reversed gradient
+   (lavender → blue) per Figma (~380px tall). Photo supplied later. */
+.hero-harmony.hero-clinic {
+  background: linear-gradient(90deg, #e9e3f2 0%, #a4c0f6 100%);
+  min-height: 380px;
+}
+
+.hero-harmony.hero-clinic h2 {
+  font-size: 56px;
+}
+
+/* No spacing above the footer: the CTA banner sits flush against it, and the
+   banner's own section margin is removed (Figma has them touching). */
+main .hero-harmony-container:has(.hero-clinic) {
+  margin-block: 0;
+}
+
+@media (width < 900px) {
+  .hero-harmony {
+    min-height: 420px;
+    padding: 40px 20px;
+  }
+
+  .hero-harmony h1,
+  .hero-harmony h2 {
+    font-size: 48px;
+  }
+
+  /* On mobile the photo sits behind at reduced prominence. */
+  .hero-harmony picture {
+    width: 60%;
+    opacity: 0.85;
+  }
+}

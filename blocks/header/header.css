@@ -354,3 +354,6 @@ header nav .nav-tools a:hover img {
     white-space: nowrap;
   }
 }
+
+/* HarmonyCa uses its own standalone `nav-harmony` block (the `header` block
+   delegates to it for harmony pages). No Juvederm-header overrides needed. */
