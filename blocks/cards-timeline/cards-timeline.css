@@ -16,7 +16,10 @@ main .cards-timeline-container {
 }
 
 .cards-timeline {
-  --tl-accent: #00a3e0;
+  /* Accessible text accent (>=4.5:1 on white); brighter brand blue for the
+     numbered-step marker ring/line which are large graphical elements. */
+  --tl-accent: #00719c;
+  --tl-marker: #00a3e0;
   --tl-navy: #071d49;
   --tl-body: #171717;
   --tl-card-bg: #fff;
@@ -89,7 +92,7 @@ main .cards-timeline-container {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 1.5px solid var(--tl-accent);
+  border: 1.5px solid var(--tl-marker);
   color: var(--tl-accent);
   font-family: var(--tl-body-font);
   font-size: 18px;
@@ -104,7 +107,7 @@ main .cards-timeline-container {
   left: 19px;
   width: 1.5px;
   height: calc(100% - 24px);
-  background: var(--tl-accent);
+  background: var(--tl-marker);
   z-index: 0;
 }
 

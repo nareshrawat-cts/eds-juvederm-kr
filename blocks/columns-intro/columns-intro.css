@@ -14,7 +14,10 @@ main .columns-intro-container {
 }
 
 .columns-intro {
-  --intro-accent: #00a3e0;
+  /* Accessible text accent (>=4.5:1 on white). The brighter brand #00a3e0 is
+     kept only for the decorative icon strokes. */
+  --intro-accent: #00719c;
+  --intro-icon: #00a3e0;
   --intro-body: #171717;
   --intro-rule: #e5e7eb;
   --intro-heading-font: 'Founders Grotesk', 'Inter', var(--body-font-family, arial, sans-serif);

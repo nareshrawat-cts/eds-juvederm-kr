@@ -22,7 +22,8 @@ main .columns-treats-container + .cards-timeline-container {
 }
 
 .columns-treats {
-  --tr-accent: #00a3e0;
+  /* Accessible text accent (>=4.5:1 on the #edf0ff band). */
+  --tr-accent: #00719c;
   --tr-navy: #071d49;
   --tr-body: #171717;
   --tr-cta-bg: #0082b3;

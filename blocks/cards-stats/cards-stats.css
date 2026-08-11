@@ -10,7 +10,8 @@ main .cards-stats-container {
 }
 
 .cards-stats {
-  --stats-value-color: #00a3e0;
+  /* Accessible teal for the big stat numbers (clears contrast on white). */
+  --stats-value-color: #00719c;
   --stats-body-color: #171717;
   --stats-icon-bg: #edf0ff;
   --stats-card-bg: #fff;
