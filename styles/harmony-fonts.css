@@ -1,0 +1,59 @@
+/*
+ * HarmonyCa brand fonts — swap structure.
+ *
+ * The Figma design uses two LICENSED fonts:
+ *   - Saol Standard    (display serif — headings, product wordmark)
+ *   - Founders Grotesk (grotesque sans — body, nav, buttons, labels)
+ *
+ * These @font-face rules point at local files under /fonts/. Until those
+ * licensed files are added, the browser silently fails to load them and every
+ * block's font stack falls back to the free look-alikes it also loads
+ * (Cormorant Garamond → Saol, Inter → Founders Grotesk). Drop the real woff2
+ * files in with the exact names below and they take over automatically — no
+ * CSS/JS changes needed. See /fonts/README-harmony-fonts.md.
+ *
+ * All families use font-display: swap so text paints immediately with the
+ * fallback and upgrades in place once the real face loads.
+ */
+
+/* ---- Saol Standard (display serif) ---- */
+@font-face {
+  font-family: 'Saol Standard';
+  font-style: normal;
+  font-weight: 300 400;
+  font-display: swap;
+  src: url('/fonts/saol-standard-light.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Saol Standard';
+  font-style: italic;
+  font-weight: 300 400;
+  font-display: swap;
+  src: url('/fonts/saol-standard-light-italic.woff2') format('woff2');
+}
+
+/* ---- Founders Grotesk (grotesque sans) ---- */
+@font-face {
+  font-family: 'Founders Grotesk';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('/fonts/founders-grotesk-light.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Founders Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/founders-grotesk-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Founders Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/founders-grotesk-medium.woff2') format('woff2');
+}

@@ -1,4 +1,4 @@
-import { getMetadata } from '../../scripts/aem.js';
+import { getMetadata, loadCSS } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
 // media query match that indicates mobile/tablet width
@@ -117,6 +117,22 @@ export default async function decorate(block) {
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
   const fragment = await loadFragment(navPath);
+
+  // HarmonyCa is a separate site with its own standalone nav block. When the
+  // nav fragment targets nav-harmony, delegate to that block instead of the
+  // Juvederm nav decoration below (which owns its own layout/mega-menu).
+  if (navPath.includes('nav-harmony')) {
+    block.textContent = '';
+    const navHarmony = document.createElement('div');
+    navHarmony.className = 'nav-harmony block';
+    navHarmony.dataset.blockName = 'nav-harmony';
+    while (fragment.firstElementChild) navHarmony.append(fragment.firstElementChild);
+    block.append(navHarmony);
+    loadCSS(`${window.hlx.codeBasePath}/blocks/nav-harmony/nav-harmony.css`);
+    const { default: decorateNavHarmony } = await import('../nav-harmony/nav-harmony.js');
+    decorateNavHarmony(navHarmony);
+    return;
+  }
 
   // The nav fragment references its images with paths relative to the fragment
   // (e.g. "images/logo.svg"). Resolve them against the fragment's own directory

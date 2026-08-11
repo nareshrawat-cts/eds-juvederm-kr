@@ -1,0 +1,181 @@
+/*
+ * nav-harmony — standalone HarmonyCa site navigation.
+ * Built from the Figma "Home - Overview" Header (71:2833). This is its own
+ * block, independent of the Juvederm `header` block: white bar, two-tone
+ * HArmonyCa wordmark on the left, navy links pushed right, mobile hamburger.
+ */
+
+.nav-harmony {
+  --navh-navy: #071d49;
+  --navh-accent: #00a3e0;
+  --navh-bar: 94px;
+  --navh-heading-font: 'Saol Standard', 'Cormorant Garamond', georgia, 'Times New Roman', serif;
+  --navh-body-font: 'Founders Grotesk', 'Inter', var(--body-font-family, arial, sans-serif);
+
+  box-sizing: border-box;
+  width: 100%;
+  background: #fff;
+}
+
+.nav-harmony .nav-harmony-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: var(--navh-bar);
+
+  /* Align the logo/links to the same centred content column + inset the hero
+     and the sections below use, so everything shares one left/right edge at
+     any resolution. */
+  padding-block: 0;
+  padding-inline: max(44px, calc((100% - 1440px) / 2 + 44px));
+}
+
+/* Brand wordmark. The link is the positioning context for the arc mark
+   (an absolute overlay sized a bit larger than the text). */
+.nav-harmony .nav-harmony-brand a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  font-family: var(--navh-heading-font);
+  font-weight: 400;
+  font-size: 26px;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: var(--navh-navy);
+  text-decoration: none;
+}
+
+.nav-harmony .nav-harmony-brand .brand-accent {
+  color: var(--navh-accent);
+}
+
+/* Elliptical logo mark — a ring drawn AROUND the whole wordmark (Figma). */
+
+.nav-harmony .nav-harmony-brand .nav-harmony-mark {
+  position: absolute;
+  inset: -2px -6px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.nav-harmony .nav-harmony-brand .nav-harmony-mark svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Keep the wordmark above the ring. */
+.nav-harmony .nav-harmony-brand a strong {
+  position: relative;
+  z-index: 1;
+}
+
+.nav-harmony .nav-harmony-brand img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+/* Link list */
+.nav-harmony .nav-harmony-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 44px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-harmony .nav-harmony-links a {
+  font-family: var(--navh-body-font);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--navh-navy);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.nav-harmony .nav-harmony-links a:hover {
+  color: var(--navh-accent);
+}
+
+/* Hamburger (mobile only) */
+.nav-harmony .nav-harmony-hamburger {
+  display: none;
+  width: 28px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.nav-harmony .nav-harmony-hamburger span,
+.nav-harmony .nav-harmony-hamburger span::before,
+.nav-harmony .nav-harmony-hamburger span::after {
+  content: '';
+  position: absolute;
+  width: 28px;
+  height: 2px;
+  background: var(--navh-navy);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-harmony .nav-harmony-hamburger span {
+  position: relative;
+  display: block;
+  top: 9px;
+}
+
+.nav-harmony .nav-harmony-hamburger span::before {
+  top: -8px;
+}
+
+.nav-harmony .nav-harmony-hamburger span::after {
+  top: 8px;
+}
+
+@media (width < 900px) {
+  .nav-harmony .nav-harmony-inner {
+    padding: 0 20px;
+    min-height: 72px;
+  }
+
+  .nav-harmony .nav-harmony-hamburger {
+    display: block;
+  }
+
+  /* Collapsed drawer */
+  .nav-harmony .nav-harmony-links {
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    padding: 8px 20px 16px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgb(7 29 73 / 8%);
+    display: none;
+  }
+
+  .nav-harmony[aria-expanded='true'] .nav-harmony-links {
+    display: flex;
+  }
+
+  .nav-harmony .nav-harmony-links li {
+    width: 100%;
+  }
+
+  .nav-harmony .nav-harmony-links a {
+    display: block;
+    padding: 14px 0;
+    font-size: 18px;
+    border-bottom: 1px solid rgb(7 29 73 / 8%);
+  }
+}

@@ -1,0 +1,106 @@
+/* stylelint-disable no-descending-specificity -- intentional :first-child/:last-child overrides */
+
+/*
+ * columns-intro — "Introducing HarmonyCa" (Figma 73:2908).
+ * 4-column row: intro text + 3 feature columns (icon + heading + body),
+ * separated by thin vertical rules.
+ */
+
+/* Match Figma section height (~360px): the boilerplate section margin is
+   replaced with internal padding so the white band reads the right height. */
+main .columns-intro-container {
+  margin-block: 0;
+  padding-block: 34px;
+}
+
+.columns-intro {
+  --intro-accent: #00a3e0;
+  --intro-body: #171717;
+  --intro-rule: #e5e7eb;
+  --intro-heading-font: 'Founders Grotesk', 'Inter', var(--body-font-family, arial, sans-serif);
+  --intro-body-font: 'Founders Grotesk', 'Inter', var(--body-font-family, arial, sans-serif);
+
+  display: grid;
+  grid-template-columns: 1.15fr 1fr 1fr 1fr;
+  gap: 40px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.columns-intro > div {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Vertical rules between the feature columns (2nd–4th cells). */
+.columns-intro > div:nth-child(n+2) {
+  padding-left: 40px;
+  border-left: 1px solid var(--intro-rule);
+}
+
+/* Eyebrow — first paragraph in the intro cell, uppercase accent. */
+.columns-intro > div:first-child > p:first-child {
+  font-family: var(--intro-body-font);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.54px;
+  text-transform: uppercase;
+  color: var(--intro-accent);
+  margin: 0;
+}
+
+.columns-intro p {
+  margin: 0;
+  font-family: var(--intro-body-font);
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 26px;
+  color: var(--intro-body);
+}
+
+/* Bold accent runs inside the intro copy. */
+.columns-intro > div:first-child strong {
+  color: var(--intro-accent);
+  font-weight: 500;
+}
+
+/* Feature icon */
+.columns-intro .columns-intro-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--intro-rule);
+}
+
+.columns-intro .columns-intro-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Feature heading */
+.columns-intro h3 {
+  margin: 0;
+  font-family: var(--intro-heading-font);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.2;
+  color: var(--intro-accent);
+}
+
+@media (width < 900px) {
+  .columns-intro {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .columns-intro > div:nth-child(n+2) {
+    padding-left: 0;
+    border-left: 0;
+    padding-top: 28px;
+    border-top: 1px solid var(--intro-rule);
+  }
+}
