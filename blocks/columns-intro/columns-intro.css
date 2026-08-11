@@ -27,10 +27,13 @@ main .columns-intro-container {
   margin: 0 auto;
 }
 
-.columns-intro > div {
+/* Each column is a row (block > row > cell); lay the cell contents out
+   vertically. */
+.columns-intro > div > div {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  height: 100%;
 }
 
 /* Vertical rules between the feature columns (2nd–4th cells). */
@@ -40,7 +43,7 @@ main .columns-intro-container {
 }
 
 /* Eyebrow — first paragraph in the intro cell, uppercase accent. */
-.columns-intro > div:first-child > p:first-child {
+.columns-intro > div:first-child p:first-child {
   font-family: var(--intro-body-font);
   font-weight: 500;
   font-size: 14px;
