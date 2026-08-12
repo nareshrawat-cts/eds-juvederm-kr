@@ -1,11 +1,13 @@
 /*
- * hero-harmony — HarmonyCa gradient hero / CTA banner.
+ * hero-harmony — HarmonyCa hero / CTA banner.
  * Figma "Home - Overview" hero (70:2459) and "Find your bounce" CTA (87:457).
  *
- * Architecture (matches Figma layers, NOT the flattened export):
- *   - CSS gradient background: linear-gradient(90deg,#a4c0f6,#f2e6f1)
- *   - text-free woman photo pinned to the right (authored as a picture row)
- *   - live HTML text/CTAs on the left (heading, subtext, buttons)
+ * Two variants:
+ *   - main hero: full-bleed DARK background photo (model on the right over
+ *     black) with white text/CTAs on the left. The authored picture row is
+ *     unwrapped to a full-cover background layer.
+ *   - .hero-clinic ("Find your bounce"): light lavender→blue gradient band
+ *     with navy text.
  *
  * Authored rows (any of): background picture, heading, subtext, CTA links.
  */
@@ -24,9 +26,9 @@
   --hero-harmony-accent: #00a3e0;
   --hero-harmony-cta-bg: #ff6a39;
   --hero-harmony-cta-color: #fff;
-  --hero-harmony-cta2-border: #000;
-  --hero-harmony-cta2-color: #171717;
-  --hero-harmony-grad: linear-gradient(90deg, #a4c0f6 0%, #f2e6f1 100%);
+  --hero-harmony-cta2-border: #fff;
+  --hero-harmony-cta2-color: #fff;
+  --hero-harmony-dark-bg: #000;
   --hero-harmony-heading-font: 'Saol Standard', 'Cormorant Garamond', georgia, 'Times New Roman', serif;
   --hero-harmony-body-font: 'Founders Grotesk', 'Inter', var(--body-font-family, arial, sans-serif);
 
@@ -44,24 +46,25 @@
   padding-inline: max(120px, calc((100% - 1440px) / 2 + 120px));
   overflow: hidden;
   isolation: isolate;
-  background: var(--hero-harmony-grad);
+
+  /* Dark hero: solid black fills the band; the photo (model on the right)
+     sits on top as a full-cover background layer. */
+  background: var(--hero-harmony-dark-bg);
 }
 
-/* Woman photo — pinned to the right half, text-free (cropped from export). */
+/* Background photo — full-cover layer behind the text (model on the right).
+   The image itself carries the black backdrop, so it covers the whole band. */
 .hero-harmony picture {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 50%;
+  inset: 0;
   z-index: -1;
 }
 
 .hero-harmony picture img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: right bottom;
+  object-fit: cover;
+  object-position: right center;
 }
 
 /* Text column, left-aligned over the light gradient. */
@@ -78,10 +81,12 @@
   font-weight: 300;
   font-size: 80px;
   line-height: 1;
-  color: var(--hero-harmony-navy);
+
+  /* White text over the dark hero photo. */
+  color: #fff;
 }
 
-/* Accent word (second line) — matches Figma's light-blue italic "Bounce". */
+/* Accent word (second line) — light-blue italic "Bounce". */
 .hero-harmony h1 em,
 .hero-harmony h2 em {
   color: var(--hero-harmony-accent);
@@ -94,7 +99,7 @@
   font-weight: 300;
   font-size: 20px;
   line-height: 1.2;
-  color: var(--hero-harmony-navy);
+  color: rgb(255 255 255 / 88%);
 }
 
 /* CTAs */
@@ -146,8 +151,8 @@
   text-decoration: none;
 }
 
-/* "Find your bounce" CTA variant — same band, reversed gradient
-   (lavender → blue) per Figma (~380px tall). Photo supplied later. */
+/* "Find your bounce" CTA variant — light lavender→blue gradient band with
+   navy text (~380px tall), distinct from the dark main hero. */
 .hero-harmony.hero-clinic {
   background: linear-gradient(90deg, #e9e3f2 0%, #a4c0f6 100%);
   min-height: 380px;
@@ -155,6 +160,18 @@
 
 .hero-harmony.hero-clinic h2 {
   font-size: 56px;
+  color: var(--hero-harmony-navy);
+}
+
+.hero-harmony.hero-clinic .hero-harmony-subtext,
+.hero-harmony.hero-clinic p:not(.button-container) {
+  color: var(--hero-harmony-navy);
+}
+
+/* Clinic secondary CTA stays dark-outline on the light band. */
+.hero-harmony.hero-clinic .hero-harmony-actions p:nth-child(2) a.button {
+  color: #171717;
+  border-color: #000;
 }
 
 /* No spacing above the footer: the CTA banner sits flush against it, and the
@@ -174,9 +191,17 @@ main .hero-harmony-container:has(.hero-clinic) {
     font-size: 48px;
   }
 
-  /* On mobile the photo sits behind at reduced prominence. */
-  .hero-harmony picture {
-    width: 60%;
-    opacity: 0.85;
+  /* Keep the model's face in frame on narrow screens; a dark scrim under the
+     text keeps it legible where the photo lightens. */
+  .hero-harmony:not(.hero-clinic) picture img {
+    object-position: 75% center;
+  }
+
+  .hero-harmony:not(.hero-clinic)::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(90deg, rgb(0 0 0 / 85%) 40%, transparent 100%);
   }
 }
