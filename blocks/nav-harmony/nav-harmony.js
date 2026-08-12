@@ -37,7 +37,7 @@ export default function decorate(block) {
   if (brandLink) {
     const label = brandLink.textContent.trim() || 'HArmonyCa';
     const logo = document.createElement('img');
-    logo.src = `${window.hlx.codeBasePath}/icons/harmony-logo.svg`;
+    logo.src = `${window.hlx.codeBasePath}/icons/aa-product-logos.svg`;
     logo.alt = label;
     logo.className = 'nav-harmony-logo';
     logo.width = 109;
