@@ -71,20 +71,17 @@ main .columns-intro-container {
   font-weight: 500;
 }
 
-/* Feature icon */
+/* Feature icon — the brand SVG includes its own round tint, so no border. */
 .columns-intro .columns-intro-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid var(--intro-rule);
 }
 
+.columns-intro .columns-intro-icon img,
 .columns-intro .columns-intro-icon svg {
-  width: 22px;
-  height: 22px;
+  width: 48px;
+  height: 48px;
 }
 
 /* Feature heading */

@@ -2,13 +2,15 @@
  * columns-intro — decorate the "Introducing HarmonyCa" columns.
  * First cell is intro copy; the following cells are features whose first
  * paragraph names an icon token (droplet | collagen | sparkle) that is
- * swapped for an inline SVG.
+ * swapped for the matching brand icon SVG (served from /icons).
  */
 
-const ICONS = {
-  droplet: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3s6 6.5 6 10.5a6 6 0 0 1-12 0C6 9.5 12 3 12 3z" stroke="#00a3e0" stroke-width="1.5" stroke-linejoin="round"/></svg>',
-  collagen: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 3l7 7-2 2-7-7 2-2zM12 5 5.5 11.5 4 17l5.5-1.5L16 9M8.5 8.5l3 3" stroke="#00a3e0" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>',
-  sparkle: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2 2-6z" stroke="#00a3e0" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+// Feature-icon token → official brand SVG (in /icons). The tokens are the
+// words authored in the content; each maps to a supplied HArmonyCa icon.
+const ICON_FILES = {
+  droplet: 'instant-vol',
+  collagen: 'collagen-stimulation',
+  sparkle: 'natural-results',
 };
 
 export default function decorate(block) {
@@ -20,10 +22,17 @@ export default function decorate(block) {
     const first = col.querySelector('p');
     if (!first) return;
     const token = first.textContent.trim().toLowerCase();
-    if (ICONS[token]) {
+    const file = ICON_FILES[token];
+    if (file) {
       const icon = document.createElement('span');
       icon.className = 'columns-intro-icon';
-      icon.innerHTML = ICONS[token];
+      const img = document.createElement('img');
+      img.src = `${window.hlx.codeBasePath}/icons/${file}.svg`;
+      img.alt = '';
+      img.setAttribute('aria-hidden', 'true');
+      img.width = 48;
+      img.height = 48;
+      icon.append(img);
       first.replaceWith(icon);
     }
   });
