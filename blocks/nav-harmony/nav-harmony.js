@@ -23,13 +23,26 @@ export default function decorate(block) {
   const inner = document.createElement('div');
   inner.className = 'nav-harmony-inner';
 
-  // Brand (row 1) — the official HArmonyCa logo lockup (SVG img from the
-  // fragment). Keep its markup intact.
+  // Brand (row 1) — keep the authored link, but swap its text for the official
+  // HArmonyCa logo lockup (SVG). The SVG is a code asset (served from /icons/),
+  // NOT a content image — an <img src> to an .svg in the fragment gets mangled
+  // by the media pipeline, so the logo is injected here instead.
   const brand = document.createElement('div');
   brand.className = 'nav-harmony-brand';
   if (brandRow) {
     const cell = brandRow.firstElementChild || brandRow;
     while (cell.firstChild) brand.append(cell.firstChild);
+  }
+  const brandLink = brand.querySelector('a');
+  if (brandLink) {
+    const label = brandLink.textContent.trim() || 'HArmonyCa';
+    const logo = document.createElement('img');
+    logo.src = `${window.hlx.codeBasePath}/icons/harmony-logo.svg`;
+    logo.alt = label;
+    logo.className = 'nav-harmony-logo';
+    logo.width = 109;
+    logo.height = 51;
+    brandLink.replaceChildren(logo);
   }
 
   // Links (row 2) — reuse the authored <ul>, just class it.
