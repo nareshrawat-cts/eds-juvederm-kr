@@ -31,49 +31,15 @@
   padding-inline: max(44px, calc((100% - 1440px) / 2 + 44px));
 }
 
-/* Brand wordmark. The link is the positioning context for the arc mark
-   (an absolute overlay sized a bit larger than the text). */
+/* Brand: the official HArmonyCa logo lockup (SVG). */
 .nav-harmony .nav-harmony-brand a {
-  position: relative;
   display: inline-flex;
   align-items: center;
-  padding: 6px 14px;
-  font-family: var(--navh-heading-font);
-  font-weight: 400;
-  font-size: 26px;
-  letter-spacing: -0.01em;
-  line-height: 1;
-  color: var(--navh-navy);
   text-decoration: none;
 }
 
-.nav-harmony .nav-harmony-brand .brand-accent {
-  color: var(--navh-accent);
-}
-
-/* Elliptical logo mark — a ring drawn AROUND the whole wordmark (Figma). */
-
-.nav-harmony .nav-harmony-brand .nav-harmony-mark {
-  position: absolute;
-  inset: -2px -6px;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.nav-harmony .nav-harmony-brand .nav-harmony-mark svg {
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-/* Keep the wordmark above the ring. */
-.nav-harmony .nav-harmony-brand a strong {
-  position: relative;
-  z-index: 1;
-}
-
 .nav-harmony .nav-harmony-brand img {
-  height: 40px;
+  height: 44px;
   width: auto;
   display: block;
 }
