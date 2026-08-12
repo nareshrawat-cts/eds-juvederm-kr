@@ -40,6 +40,7 @@ main .cards-stats-container {
   background: var(--stats-card-bg);
   border: 1px solid var(--stats-card-border);
   border-radius: 12px;
+  box-shadow: 0 8px 24px rgb(7 29 73 / 8%);
 }
 
 .cards-stats .cards-stats-icon {
